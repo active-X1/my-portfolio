@@ -1,40 +1,53 @@
 // DARK MODE
-const toggle = document.getElementById("darkToggle");
-
-toggle.onclick = () => {
+document.getElementById("darkToggle").onclick = () => {
     document.body.classList.toggle("dark");
 };
 
-// TYPING EFFECT
+// TYPING
 const typing = document.getElementById("typing");
 const words = ["Cyrus Akacha", "Python Developer", "Problem Solver"];
 
-let i = 0, j = 0, deleting = false;
+let i = 0, j = 0, del = false;
 
 function type() {
     let word = words[i];
-    typing.textContent = deleting ? word.slice(0, j--) : word.slice(0, j++);
+    typing.textContent = del ? word.slice(0, j--) : word.slice(0, j++);
 
-    if (!deleting && j === word.length) {
-        deleting = true;
+    if (!del && j === word.length) {
+        del = true;
         setTimeout(type, 1000);
-    } else if (deleting && j === 0) {
-        deleting = false;
+    } else if (del && j === 0) {
+        del = false;
         i = (i + 1) % words.length;
-        setTimeout(type, 200);
-    } else {
-        setTimeout(type, deleting ? 50 : 100);
     }
+
+    setTimeout(type, del ? 50 : 100);
 }
 type();
 
+// MODAL
+function openModal(title, desc, link) {
+    document.getElementById("modalTitle").textContent = title;
+    document.getElementById("modalDesc").textContent = desc;
+    document.getElementById("modalLink").href = link;
+    document.getElementById("modal").style.display = "block";
+}
+
+document.getElementById("closeModal").onclick = () => {
+    document.getElementById("modal").style.display = "none";
+};
+
+window.onclick = (e) => {
+    if (e.target.id === "modal") {
+        document.getElementById("modal").style.display = "none";
+    }
+};
+
 // SCROLL ANIMATION
-const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add("show");
-        }
+const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add("show");
     });
 });
 
-document.querySelectorAll(".fade-in").forEach(el => observer.observe(el));
+document.querySelectorAll(".fade-in").forEach(el => obs.observe(el));
