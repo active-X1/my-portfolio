@@ -1,103 +1,191 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cyrus Akacha Portfolio</title>
-
-<link rel="stylesheet" href="css/styles.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="description" content="Cyrus Akacha Cyprian - Python Developer specializing in software development, web development, and automation.">
+    <title>Cyrus Akacha Cyprian | Python Developer</title>
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
-
 <body>
+    <header class="main-header">
+        <h1 class="header-name"><span>Cyrus Akacha Cyprian</span></h1>
+        <div class="header-subtitle">Python Developer | Software, Automation & Web Development</div>
+    </header>
 
-<!-- HEADER -->
-<header class="main-header">
-    <h1 class="header-name">Cyrus <span>Akacha</span></h1>
-    <div class="header-subtitle">Python Developer</div>
-
-    <button id="darkToggle" class="dark-btn">
+    <!-- Dark Mode Toggle - Floating -->
+    <div class="dark-toggle" id="darkModeToggle" aria-label="Dark mode">
         <i class="fas fa-moon"></i>
-    </button>
-</header>
-
-<!-- HERO -->
-<section class="hero">
-    <h2 id="typing"></h2>
-    <p>Where code meets creativity</p>
-
-    <div class="photo-container">
-        <img src="assets/images/profile.jpg" class="profile-photo">
     </div>
-</section>
 
-<!-- ABOUT -->
-<section class="section fade-in">
-<h2 class="section-title">About Me</h2>
-<p class="about-text">
-My name is Cyrus Akacha Cyprian, a passionate Python developer specializing in software development, web development, and automation.
-I began programming in September 2025 and have built several projects including calculators and interactive math games.
-</p>
-</section>
-
-<!-- PROJECTS -->
-<section class="section fade-in">
-<h2 class="section-title">Projects</h2>
-
-<div class="button-grid">
-
-<div class="grid-btn" onclick="openModal(
-'0–9 Digit Calculator',
-'Full calculator supporting digits and operations',
-'https://github.com/active-X1/0-9-digit-cal'
-)">
-<img src="assets/images/calculator.png">
-<p>0–9 Calculator</p>
-</div>
-
-<div class="grid-btn" onclick="openModal(
-'Maths Frenzy',
-'Interactive maths game with difficulty levels',
-'https://github.com/active-X1/Maths-Frenzy'
-)">
-<img src="assets/images/calculator.png">
-<p>Maths Frenzy</p>
-</div>
-
-<div class="grid-btn" onclick="openModal(
-'Two Number Calculator',
-'Performs operations between two numbers',
-'https://github.com/active-X1/Tkinter-two-number-calculator-'
-)">
-<img src="assets/images/calculator.png">
-<p>Two Number</p>
-</div>
-
-<div class="grid-btn pending">
-<div class="pending-box">Pending (10%)</div>
-<p>School Portal</p>
-</div>
-
-</div>
-</section>
-
-<!-- HIRE ME -->
-<section class="section fade-in">
-<h2 class="section-title">Hire Me</h2>
-<p>Open to collaborations and real-world projects</p>
-<a href="mailto:cyrusakacha@gmail.com" class="cta-btn">Contact Me</a>
-</section>
-
-<!-- MODAL -->
-<div id="modal" class="modal">
-    <div class="modal-content">
-        <span id="closeModal">&times;</span>
-        <h2 id="modalTitle"></h2>
-        <p id="modalDesc"></p>
-        <a id="modalLink" target="_blank">View Code</a>
+    <!-- Menu Toggle - Floating -->
+    <div class="menu-toggle" id="menuToggle">
+        <i class="fas fa-bars"></i>
     </div>
-</div>
 
-<script src="js/main.js"></script>
+    <!-- Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3>Cyrus</h3>
+            <div class="close-sidebar" id="closeSidebar">
+                <i class="fas fa-times"></i>
+            </div>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="#home" class="sidebar-link"><i class="fas fa-home"></i> Home</a>
+            <a href="#about" class="sidebar-link"><i class="fas fa-user"></i> About</a>
+            <a href="#tools" class="sidebar-link"><i class="fas fa-tools"></i> Tools</a>
+            <a href="#skills" class="sidebar-link"><i class="fas fa-code"></i> Skills</a>
+            <a href="#projects" class="sidebar-link"><i class="fas fa-code-branch"></i> Projects</a>
+            <a href="#hire" class="sidebar-link"><i class="fas fa-handshake"></i> Hire Me</a>
+            <a href="#contact" class="sidebar-link"><i class="fas fa-address-book"></i> Social</a>
+            <div class="sidebar-divider"></div>
+            <a href="https://wa.me/2348066761823" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+            <a href="https://github.com/active-X1" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section id="home" class="hero-section">
+            <div class="container">
+                <h2 id="typing" class="typing-text"></h2>
+                <p class="hero-tagline">“Where code meets creativity — Python, Automation & Web”</p>
+                <div class="photo-container">
+                    <img src="images/profile.jpg" alt="Cyrus Akacha" class="profile-photo" id="profilePhoto" 
+                         onerror="this.src='https://ui-avatars.com/api/?background=1cc88a&color=fff&bold=true&size=250&name=Cyrus'">
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about">
+            <div class="container">
+                <h2 class="section-title">📖 About Me</h2>
+                <div class="about-text">
+                    <p>My name is <strong>Cyrus Akacha Cyprian</strong>, a passionate Python developer specializing in software development, web development, and automation.</p>
+                    <p style="margin-top: 1rem;">I began my programming journey in September 2025 and have since built several projects that demonstrate my growth and problem-solving skills. Some of my notable works include a Two Number Calculator, an advanced version using Tkinter, a 0–9 digit calculator, and an interactive math game called <strong>Maths Frenzy</strong>. I have also developed smaller projects such as Guess the Number and Rock-Paper-Scissors using NiceGUI.</p>
+                    <p style="margin-top: 1rem;">Currently, I am expanding my knowledge by learning advanced Tkinter and NiceGUI. I am also preparing to dive into backend frameworks such as Django, Flask, and FastAPI to build more powerful and scalable applications.</p>
+                    <p style="margin-top: 1rem;">🎓 Secondary school graduate (September 2025) — soon studying Computer Science at university level.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tools Section -->
+        <section id="tools">
+            <div class="container">
+                <h2 class="section-title">⚙️ Core Tools</h2>
+                <div class="button-grid">
+                    <div class="grid-btn"><i class="fab fa-python"></i><p>Python</p><span class="tool-badge">Primary</span></div>
+                    <div class="grid-btn"><i class="fas fa-puzzle-piece"></i><p>NiceGUI</p><span class="tool-badge">Advanced</span></div>
+                    <div class="grid-btn"><i class="fas fa-window-maximize"></i><p>Tkinter</p><span class="tool-badge">Advanced</span></div>
+                    <div class="grid-btn"><i class="fas fa-calculator"></i><p>Mathematics</p><span class="tool-badge">Core</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills">
+            <div class="container">
+                <h2 class="section-title">🧠 Skills & Technologies</h2>
+                <div class="skills-grid">
+                    <div class="skill-category"><h3><i class="fab fa-python"></i> Languages</h3><div class="skill-items"><span class="skill-tag">Python</span><span class="skill-tag">HTML5</span><span class="skill-tag">CSS3</span><span class="skill-tag">JavaScript</span></div></div>
+                    <div class="skill-category"><h3><i class="fas fa-layer-group"></i> Frameworks</h3><div class="skill-items"><span class="skill-tag">Tkinter</span><span class="skill-tag">NiceGUI</span><span class="skill-tag">Django (Learning)</span><span class="skill-tag">Flask (Learning)</span><span class="skill-tag">FastAPI (Learning)</span></div></div>
+                    <div class="skill-category"><h3><i class="fas fa-tools"></i> Dev Tools</h3><div class="skill-items"><span class="skill-tag">VS Code</span><span class="skill-tag">GitHub</span><span class="skill-tag">Git</span></div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects">
+            <div class="container">
+                <h2 class="section-title">💻 Featured Projects</h2>
+                <div class="button-grid">
+                    <!-- 0-9 Digit Calculator -->
+                    <div class="grid-btn project-card">
+                        <img src="images/calculator-09.jpg" alt="0-9 Digit Calculator" class="project-img" 
+                             onerror="this.src='https://via.placeholder.com/400x160/1cc88a/ffffff?text=0-9+Digit+Calculator'">
+                        <i class="fas fa-calculator"></i>
+                        <p>0-9 Digit Calculator</p>
+                        <p class="project-desc">Full digit calculator with Tkinter GUI</p>
+                        <a href="https://github.com/active-X1/0-9-digit-cal" target="_blank" class="project-link"><i class="fab fa-github"></i> View Code</a>
+                    </div>
+                    
+                    <!-- Two Number Calculator -->
+                    <div class="grid-btn project-card">
+                        <img src="images/two-number-calculator.jpg" alt="Two Number Calculator" class="project-img"
+                             onerror="this.src='https://via.placeholder.com/400x160/1cc88a/ffffff?text=Two+Number+Calculator'">
+                        <i class="fas fa-exchange-alt"></i>
+                        <p>Two Number Calculator</p>
+                        <p class="project-desc">Tkinter calculator for two-number operations</p>
+                        <a href="https://github.com/active-X1/Tkinter-two-number-calculator-" target="_blank" class="project-link"><i class="fab fa-github"></i> View Code</a>
+                    </div>
+                    
+                    <!-- Maths Frenzy -->
+                    <div class="grid-btn project-card">
+                        <img src="images/maths-frenzy.jpg" alt="Maths Frenzy" class="project-img"
+                             onerror="this.src='https://via.placeholder.com/400x160/f39c12/ffffff?text=Maths+Frenzy+Game'">
+                        <i class="fas fa-gamepad"></i>
+                        <p>Maths Frenzy</p>
+                        <p class="project-desc">Interactive math game with multiple difficulty levels</p>
+                        <a href="https://github.com/active-X1/Maths-Frenzy" target="_blank" class="project-link"><i class="fab fa-github"></i> View Code</a>
+                    </div>
+                    
+                    <!-- School Portal - Pending -->
+                    <div class="grid-btn project-card">
+                        <div class="pending-img-placeholder">
+                            <i class="fas fa-school"></i>
+                        </div>
+                        <p>School Portal</p>
+                        <p class="project-desc">Student management system & academic portal</p>
+                        <div class="pending-badge">
+                            <i class="fas fa-chart-line"></i> PENDING · 10% COMPLETE
+                        </div>
+                        <a href="https://github.com/active-X1/School-Portal" target="_blank" class="project-link"><i class="fab fa-github"></i> View Repository</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Hire Me Section -->
+        <section id="hire">
+            <div class="container">
+                <h2 class="section-title">🚀 Let's Build Something Great</h2>
+                <div class="hire-card">
+                    <h3>Open to Opportunities</h3>
+                    <p>I'm open to learning opportunities, collaborations, and entry-level roles where I can apply my Python skills to real-world projects. If you have an idea or project in mind, feel free to reach out — I'd love to work with you.</p>
+                    <a href="mailto:cyrusakacha@gmail.com" class="hire-btn"><i class="fas fa-envelope"></i> Hire Me / Collaborate</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Social Section -->
+        <section id="contact">
+            <div class="container">
+                <h2 class="section-title">📡 Connect With Me</h2>
+                <div class="social-grid">
+                    <a href="https://wa.me/2348066761823" target="_blank" class="social-item"><div class="social-icon"><i class="fab fa-whatsapp"></i></div><span class="social-name">WhatsApp</span></a>
+                    <a href="https://github.com/active-X1" target="_blank" class="social-item"><div class="social-icon"><i class="fab fa-github"></i></div><span class="social-name">GitHub</span></a>
+                    <a href="https://www.facebook.com/cyrusakacha01" target="_blank" class="social-item"><div class="social-icon"><i class="fab fa-facebook-f"></i></div><span class="social-name">Facebook</span></a>
+                    <a href="https://medium.com/@akachacyrus09" target="_blank" class="social-item"><div class="social-icon"><i class="fab fa-medium"></i></div><span class="social-name">Medium</span></a>
+                    <a href="https://x.com/akachacyrus" target="_blank" class="social-item"><div class="social-icon"><i class="fab fa-x-twitter"></i></div><span class="social-name">X</span></a>
+                    <a href="mailto:cyrusakacha@gmail.com" class="social-item"><div class="social-icon"><i class="fas fa-envelope"></i></div><span class="social-name">Email</span></a>
+                </div>
+            </div>
+        </section>
+
+        <footer class="main-footer">
+            <p>© <span id="currentYear"></span> Cyrus Akacha Cyprian — Python Developer</p>
+            <p class="footer-credit">Software · Automation · Web Development</p>
+        </footer>
+    </main>
+
+    <script src="js/script.js"></script>
 </body>
     </html>
