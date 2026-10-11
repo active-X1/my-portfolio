@@ -171,9 +171,9 @@ export function ProjectExplorer({ projects, languages, technologies }: Props) {
               ) : undefined
             }
           >
-            {categoryIsEmpty && category !== "all"
-              ? categoryMeta[category].emptyMessage
-              : "Try a different search term or remove a filter."}
+            {category !== "all" && counts[category] === 0
+  ? categoryMeta[category].emptyMessage
+  : "Try a different search term or remove a filter."}
           </EmptyState>
         )}
       </div>
