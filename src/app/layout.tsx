@@ -4,6 +4,8 @@ import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { siteConfig } from "@/data/site";
 import { assertDataIntegrity } from "@/lib/integrity";
+import { isAssistantConfigured } from "@/lib/assistant";
+import { AssistantWidget } from "@/components/assistant/assistant-widget";
 import "./globals.css";
 
 assertDataIntegrity();
@@ -14,12 +16,12 @@ const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono", displ
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
-  title: { default: `${siteConfig.name} | ${siteConfig.title}`, template: `%s | ${siteConfig.name}` },
+  title: { default: `${siteConfig.name} | ${siteConfig.metaTitle}`, template: `%s | ${siteConfig.name}` },
   description: siteConfig.description,
   openGraph: {
     type: "website",
     siteName: siteConfig.name,
-    title: `${siteConfig.name} | ${siteConfig.title}`,
+    title: `${siteConfig.name} | ${siteConfig.metaTitle}`,
     description: siteConfig.description,
     images: [{ url: siteConfig.portrait.src, width: siteConfig.portrait.width, height: siteConfig.portrait.height, alt: siteConfig.portrait.alt }],
   },
@@ -53,6 +55,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Header />
         <main id="main-content">{children}</main>
         <Footer />
+        <AssistantWidget configured={isAssistantConfigured()} email={siteConfig.email} phone={siteConfig.phoneDisplay} />
       </body>
     </html>
   );

@@ -8,8 +8,8 @@ import { CurrentYear } from "./current-year";
 
 export function Footer() {
   return (
-    <footer className="mt-24 border-t border-border">
-      <Container className="grid gap-10 py-12 md:grid-cols-[1.4fr_1fr]">
+    <footer id="site-footer" className="mt-16 border-t border-border sm:mt-24">
+      <Container className="grid gap-10 py-8 sm:py-12 md:grid-cols-[1.4fr_1fr]">
         <div>
           <p className="font-display text-lg font-semibold">{siteConfig.name}</p>
           <p className="mt-2 max-w-sm text-sm leading-6 text-muted-foreground">{siteConfig.tagline}</p>

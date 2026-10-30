@@ -17,9 +17,9 @@ export default function CertificatesPage() {
     <>
       <PageHeader
         title="Certificates"
-        description="Qualifications I have earned and can verify. This page grows as I do."
+        description="Qualifications I have earned and can verify."
       />
-      <Container className="py-12">
+      <Container className="py-8 sm:py-12">
         {certificates.length > 0 ? (
           <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {certificates.map((c) => (
@@ -31,11 +31,11 @@ export default function CertificatesPage() {
         ) : (
           <EmptyState
             icon={Award}
-            title="Learning by building, certificates to follow"
+            title="No certificates listed yet"
             action={<ButtonLink href="/projects" variant="outline">See what I have built</ButtonLink>}
           >
-            I am early in my journey and have no certificates to show yet. I will add each one here with a verification link
-            once I have earned it. Until then, my projects are the best evidence of what I can do.
+            Each certificate will appear here with a verification link once I have earned it. Until then, my projects are the
+            best evidence of what I can do.
           </EmptyState>
         )}
       </Container>

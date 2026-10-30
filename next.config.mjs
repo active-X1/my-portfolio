@@ -3,6 +3,9 @@ const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   images: { formats: ["image/avif", "image/webp"] },
+  async redirects() {
+    return [{ source: "/stacks", destination: "/technologies", permanent: true }];
+  },
   async headers() {
     return [
       {

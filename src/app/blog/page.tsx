@@ -19,7 +19,7 @@ export default function BlogPage() {
         title="Blog"
         description="Tutorials, project logs and lessons from building software. I only publish what I have actually written."
       />
-      <Container className="py-12">
+      <Container className="py-8 sm:py-12">
         {posts.length > 0 ? (
           <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {posts.map((p) => (

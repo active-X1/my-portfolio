@@ -4,7 +4,7 @@ import { projects } from "@/data/projects";
 import { getAllPosts } from "@/lib/blog";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticRoutes = ["", "/about", "/projects", "/stacks", "/blog", "/gallery", "/certificates", "/reviews", "/contact"];
+  const staticRoutes = ["", "/about", "/projects", "/technologies", "/journey", "/blog", "/gallery", "/certificates", "/reviews", "/contact"];
   return [
     ...staticRoutes.map((r) => ({ url: `${siteConfig.url}${r}` })),
     ...projects.map((p) => ({ url: `${siteConfig.url}/projects/${p.slug}` })),

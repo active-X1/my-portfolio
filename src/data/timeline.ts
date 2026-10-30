@@ -1,37 +1,44 @@
 import type { TimelineItem } from "@/types";
 
-/** Only dates that appear in my original portfolio are filled in. Add more as they are known. */
+/** Thematic, not strictly chronological. Only dates I can stand behind are filled in. */
 export const timeline: TimelineItem[] = [
   {
     date: "September 2025",
-    title: "Started programming and finished secondary school",
-    description: "Began learning Python fundamentals and building small practical programs.",
+    title: "Started learning programming with Python",
+    description: "Began with Python fundamentals and built practical programs to learn by doing.",
     status: "done",
   },
   {
-    title: "Calculators in Python",
+    title: "Python desktop applications",
     description:
-      "Built the Two Number Calculator and the 0-9 Digit Calculator, moving from scripts to Tkinter interfaces.",
+      "Built desktop utilities with Tkinter and CustomTkinter: the Aurora 2 Number Calculator and the Brightness Controller.",
     status: "done",
   },
   {
-    title: "Maths Frenzy and Brightness Controller",
-    description: "Built a game with difficulty levels and a desktop utility with a custom-styled interface.",
+    title: "Cross-platform and interactive applications",
+    description:
+      "Built Campus Desk, a student management system with desktop, mobile, web and terminal interfaces, a NiceGUI Rock Paper Scissors game, and Maths Frenzy, a timed maths game with terminal, desktop and web interfaces on one shared engine.",
     status: "done",
   },
   {
-    title: "School Portal",
-    description: "Started a student management system and academic portal. About 10% complete.",
+    title: "Database-backed web applications",
+    description:
+      "Built Student Hub with Node.js, Express.js and PostgreSQL, and Elite Ballers FC with Supabase, deployed on Render.",
+    status: "done",
+  },
+  {
+    title: "WhatsApp automation",
+    description: "Built CyrusBot, a modular WhatsApp bot on Node.js and Baileys with AI conversations through OpenRouter.",
+    status: "done",
+  },
+  {
+    title: "Portfolio in React and TypeScript",
+    description: "Rebuilt this portfolio as a typed, multi-page application.",
     status: "current",
   },
   {
-    title: "Portfolio rebuild with Next.js and TypeScript",
-    description: "Moving from a single HTML page to a multi-page, typed application.",
+    title: "Strengthening engineering foundations",
+    description: "Maintainable code, system design, backend engineering, REST APIs and deployment practice.",
     status: "current",
-  },
-  {
-    title: "Backend frameworks, bots and agentic AI",
-    description: "Django, Flask or FastAPI, then bots, then an agentic system with tool calling.",
-    status: "next",
   },
 ];

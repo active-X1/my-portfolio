@@ -1,50 +1,44 @@
 import Link from "next/link";
-import Image from "next/image";
-import { BookOpen, Compass } from "lucide-react";
 import { Hero } from "@/components/home/hero";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { ButtonLink } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { EmptyState } from "@/components/ui/empty-state";
 import { TechIcon } from "@/components/ui/tech-icon";
 import { ProjectCard } from "@/components/projects/project-card";
-import { BlogCard } from "@/components/blog/blog-card";
 import { siteConfig } from "@/data/site";
+import { aboutParagraphs, interests } from "@/data/about";
 import { projects } from "@/data/projects";
-import { learningFocus, usageMeta } from "@/data/skills";
-import { gallery } from "@/data/gallery";
-import { getAllPosts } from "@/lib/blog";
+import { allTechItems, proficiencyLabel } from "@/data/technologies";
 
-const featuredTech: { id: string; name: string; iconKeys: string[]; usage: string }[] = [
-  { id: "python", name: "Python", iconKeys: ["siPython"], usage: "frequent" },
-  { id: "html", name: "HTML", iconKeys: ["siHtml5"], usage: "used" },
-  { id: "css", name: "CSS", iconKeys: ["siCss3", "siCss"], usage: "used" },
-  { id: "js", name: "JavaScript", iconKeys: ["siJavascript"], usage: "used" },
-  { id: "ts", name: "TypeScript", iconKeys: ["siTypescript"], usage: "learning" },
-  { id: "react", name: "React", iconKeys: ["siReact"], usage: "learning" },
-  { id: "next", name: "Next.js", iconKeys: ["siNextdotjs"], usage: "learning" },
-  { id: "git", name: "Git", iconKeys: ["siGit"], usage: "used" },
-];
+const homeTechIds = ["python", "javascript", "react", "typescript", "nodejs", "postgresql", "supabase", "html5", "css3", "git"];
 
 export default function HomePage() {
-  const featured = projects.filter((p) => p.featured).slice(0, 3);
-  const posts = getAllPosts().slice(0, 3);
-  const recent = gallery.slice(0, 3);
+  const featured = projects.filter((p) => p.featured);
+  const more = projects.filter((p) => !p.featured).slice(0, 4);
+  const tech = homeTechIds
+    .map((id) => allTechItems.find((t) => t.id === id))
+    .filter((t) => t !== undefined);
 
   return (
     <>
       <Hero />
 
-      <section className="py-20" aria-labelledby="home-projects">
+      <section className="py-10 sm:py-16" aria-labelledby="home-featured">
         <Container>
           <SectionHeading
-            title="Selected projects"
-            description="Real programs I have built while learning. Each one links to its repository."
+            title="Featured projects"
+            description="Database-backed web applications built and deployed end to end."
             action={{ label: "All projects", href: "/projects" }}
           />
-          <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="mt-5 grid grid-cols-2 gap-3 sm:mt-8 sm:gap-4 lg:gap-6">
             {featured.map((p) => (
+              <li key={p.slug}>
+                <ProjectCard project={p} layout="featured" />
+              </li>
+            ))}
+          </ul>
+          <ul className="mt-3 grid grid-cols-2 gap-3 sm:mt-4 sm:gap-4 md:grid-cols-4 lg:gap-6">
+            {more.map((p) => (
               <li key={p.slug}>
                 <ProjectCard project={p} />
               </li>
@@ -53,113 +47,72 @@ export default function HomePage() {
         </Container>
       </section>
 
-      <section className="border-y border-border bg-card/40 py-20" aria-labelledby="home-about">
-        <Container className="grid gap-10 lg:grid-cols-[1fr_1.2fr] lg:items-center">
+      <section className="border-y border-border bg-card/40 py-10 sm:py-16" aria-labelledby="home-about">
+        <Container className="grid gap-6 lg:grid-cols-[1fr_1.2fr] lg:items-center lg:gap-12">
+          <h2 id="home-about" className="font-display text-fluid-h2 font-semibold">
+            Building software I can explain end to end
+          </h2>
           <div>
-            <h2 id="home-about" className="font-display text-2xl font-semibold sm:text-3xl">
-              A developer who wants to understand the systems he builds
-            </h2>
-          </div>
-          <div>
-            <p className="text-lg leading-8 text-muted-foreground">{siteConfig.quote}</p>
-            <p className="mt-4 leading-7 text-muted-foreground">
-              I started with Python fundamentals in September 2025 and have moved from small scripts to graphical
-              applications. Now I am learning web development and backend work.
-            </p>
-            <ButtonLink href="/about" variant="outline" className="mt-6">
-              Read my story
+            <p className="text-fluid-lead text-muted-foreground">{aboutParagraphs[0]}</p>
+            <p className="mt-3 text-fluid-lead text-muted-foreground">{aboutParagraphs[3]}</p>
+            <p className="mt-4 border-l-2 border-accent pl-4 text-sm leading-6 text-foreground/90 sm:text-base">{siteConfig.quote}</p>
+            <ButtonLink href="/about" variant="outline" className="mt-5">
+              More about me
             </ButtonLink>
           </div>
         </Container>
       </section>
 
-      <section className="py-20" aria-labelledby="home-tech">
+      <section className="py-10 sm:py-16" aria-labelledby="home-tech">
         <Container>
           <SectionHeading
             title="Technologies"
-            description="The labels show where I actually am with each one."
-            action={{ label: "Full stack breakdown", href: "/stacks" }}
+            description="Python and JavaScript at the core, React and TypeScript with good proficiency."
+            action={{ label: "All technologies", href: "/technologies" }}
           />
-          <ul className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4">
-            {featuredTech.map((t) => (
-              <li key={t.id} className="flex items-center gap-3 rounded-xl border border-border bg-card p-4">
-                <TechIcon iconKeys={t.iconKeys} label={`${t.name} logo`} className="h-8 w-8 shrink-0" />
-                <div>
-                  <p className="text-sm font-medium">{t.name}</p>
-                  <p className="text-xs text-muted-foreground">{usageMeta[t.usage].label}</p>
-                </div>
+          <ul className="mt-5 grid grid-cols-2 gap-2.5 sm:mt-8 sm:grid-cols-3 sm:gap-3 lg:grid-cols-5">
+            {tech.map((t) => (
+              <li key={t.id} className="flex min-h-14 items-center gap-3 rounded-lg border border-border bg-card px-3 py-2.5">
+                <TechIcon iconKeys={t.iconKeys} fallback={t.fallback} label={`${t.name} logo`} className="h-6 w-6 shrink-0 sm:h-7 sm:w-7" />
+                <span className="min-w-0">
+                  <span className="block truncate text-sm font-medium">{t.name}</span>
+                  {t.proficiency && <span className="block truncate text-[11px] text-link sm:text-xs">{proficiencyLabel[t.proficiency]}</span>}
+                </span>
               </li>
             ))}
           </ul>
         </Container>
       </section>
 
-      <section className="border-y border-border bg-card/40 py-20" aria-labelledby="home-learning">
+      <section className="border-t border-border bg-card/40 py-10 sm:py-16" aria-labelledby="home-interests">
         <Container>
-          <SectionHeading title="Current learning focus" description="What I am working on or preparing to start." />
-          <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {learningFocus.map((item) => (
-              <li key={item.title} className="rounded-xl border border-border bg-card p-5">
-                <Badge tone={item.status === "learning" ? "accent" : "outline"}>
-                  {item.status === "learning" ? "Learning now" : "Planned"}
-                </Badge>
-                <h3 className="mt-3 font-display font-semibold">{item.title}</h3>
-                <p className="mt-1 text-sm leading-6 text-muted-foreground">{item.note}</p>
+          <SectionHeading title="Current development interests" />
+          <ul className="mt-5 flex flex-wrap gap-2 sm:mt-8 sm:gap-3">
+            {interests.map((i) => (
+              <li key={i} className="rounded-lg border border-border bg-card px-3 py-2 text-sm sm:px-4">
+                {i}
               </li>
             ))}
           </ul>
+          <p className="mt-6 text-sm text-muted-foreground">
+            See how this grew on the{" "}
+            <Link href="/journey" className="text-link hover:underline">
+              development journey
+            </Link>{" "}
+            page.
+          </p>
         </Container>
       </section>
 
-      <section className="py-20" aria-labelledby="home-blog">
-        <Container>
-          <SectionHeading title="Latest writing" action={{ label: "All posts", href: "/blog" }} />
-          <div className="mt-10">
-            {posts.length > 0 ? (
-              <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {posts.map((p) => (
-                  <li key={p.slug}>
-                    <BlogCard post={p} />
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <EmptyState icon={BookOpen} title="No posts published yet">
-                I will write about what I build and learn here. Nothing has been published yet.
-              </EmptyState>
-            )}
-          </div>
-        </Container>
-      </section>
-
-      <section className="border-t border-border bg-card/40 py-20" aria-labelledby="home-gallery">
-        <Container>
-          <SectionHeading title="From the gallery" action={{ label: "Open gallery", href: "/gallery" }} />
-          <ul className="mt-10 grid gap-6 sm:grid-cols-3">
-            {recent.map((e) => (
-              <li key={e.id}>
-                <Link href="/gallery" className="block overflow-hidden rounded-xl border border-border bg-card">
-                  <div className="relative aspect-[4/3] bg-muted">
-                    <Image src={e.image.src} alt={e.image.alt} fill sizes="(min-width: 640px) 33vw, 100vw" className="object-contain p-3" />
-                  </div>
-                  <p className="p-4 text-sm font-medium">{e.title}</p>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </Container>
-      </section>
-
-      <section className="py-24" aria-labelledby="home-contact">
+      <section className="py-14 sm:py-24" aria-labelledby="home-contact">
         <Container className="text-center">
-          <Compass className="mx-auto h-8 w-8 text-link" aria-hidden="true" />
-          <h2 id="home-contact" className="mt-4 font-display text-3xl font-semibold sm:text-4xl">
-            Have something to build or learn together?
+          <h2 id="home-contact" className="font-display text-fluid-h1 font-semibold">
+            Have something to build?
           </h2>
-          <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
+          <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
             I am open to collaborations, questions and entry-level opportunities.
           </p>
-          <ButtonLink href="/contact" className="mt-8">
+          <ButtonLink href="/contact" className="mt-6">
             Get in touch
           </ButtonLink>
         </Container>

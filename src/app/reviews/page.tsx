@@ -27,7 +27,7 @@ export default async function ReviewsPage() {
         title="Reviews"
         description="Feedback from people I have actually worked with. Every review is checked by me before it is shown."
       />
-      <Container className="space-y-16 py-12">
+      <Container className="space-y-12 py-8 sm:space-y-16 sm:py-12">
         {summary ? (
           <>
             <ReviewSummary summary={summary} />

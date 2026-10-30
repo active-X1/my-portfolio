@@ -1,8 +1,8 @@
-export type ProjectCategory = "beginner" | "intermediate" | "advanced";
-export type ProjectStatus = "completed" | "in-progress" | "prototype" | "archived";
+export type ProjectGroup = "web" | "desktop" | "automation-ai" | "interactive";
 
-export interface TechShare {
-  tech: string;
+/** Share of a repository's code per language, as reported by GitHub. Not a skill measure. */
+export interface LanguageShare {
+  name: string;
   percent: number;
 }
 
@@ -16,61 +16,60 @@ export interface ProjectImage {
 export interface Project {
   slug: string;
   name: string;
+  /** Longer official name when the display name is a product name. */
+  alias?: string;
+  /** One or two lines for cards. */
+  summary: string;
+  /** Overview paragraph for the case study. */
   description: string;
-  category: ProjectCategory;
-  /** Why the project sits in this category. Shown on the detail page. */
-  classificationNote?: string;
-  status: ProjectStatus;
+  group: ProjectGroup;
   featured?: boolean;
-  /** Programming languages used. Leave empty when not confirmed. */
-  languages: string[];
-  /** Frameworks, libraries and tools used. */
+  /** Languages, frameworks, services and tools, in display order. */
   technologies: string[];
-  /** Must total 100 when present. See `breakdownBasis`. */
-  breakdown?: TechShare[];
-  breakdownBasis?: "estimate" | "measured";
+  /** GitHub language statistics. Omit when not available. */
+  languageStats?: LanguageShare[];
+  /** Real screenshot. Leave out to show the themed placeholder. */
   image?: ProjectImage;
+  /** Additional screenshots for the case study. */
+  screenshots?: ProjectImage[];
   github?: string;
   live?: string;
-  overview?: string;
   problem?: string;
-  features?: string[];
-  architecture?: string;
-  contribution?: string;
-  decisions?: string[];
-  lessons?: string[];
+  features: string[];
   related?: string[];
 }
 
-export type UsageLevel = "frequent" | "used" | "learning" | "planned";
+export type Proficiency = "core" | "good";
 
-export interface Skill {
-  id: string;
-  name: string;
-  description: string;
-  usage: UsageLevel;
-  /** Self-assessed 0-100. Omit for skills not yet started. */
-  percent?: number;
-  usedFor: string;
-  /** Project slugs. */
-  projects: string[];
-  activeStack: boolean;
-  docsUrl?: string;
-}
+export type FallbackIcon =
+  | "database"
+  | "monitor"
+  | "file"
+  | "braces"
+  | "plug"
+  | "terminal"
+  | "sparkles"
+  | "bot"
+  | "cloud"
+  | "code";
 
-export interface LanguageGroup {
+export interface Technology {
   id: string;
   name: string;
   /** simple-icons export names, tried in order. */
   iconKeys: string[];
-  summary: string;
-  skills: Skill[];
+  fallback?: FallbackIcon;
+  /** Only set where I am confident: "core" or "good". Never invent one. */
+  proficiency?: Proficiency;
+  /** Names as they appear in project `technologies`, used to find the projects that use it. */
+  projectKeys: string[];
+  note?: string;
 }
 
-export interface LearningItem {
-  title: string;
-  status: "learning" | "planned";
-  note: string;
+export interface TechCategory {
+  id: string;
+  name: string;
+  items: Technology[];
 }
 
 export interface TimelineItem {

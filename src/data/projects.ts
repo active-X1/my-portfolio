@@ -1,160 +1,64 @@
-import type { Project, ProjectCategory, ProjectStatus } from "@/types";
+import type { Project, ProjectGroup } from "@/types";
 
-export const categoryMeta: Record<
-  ProjectCategory,
-  { label: string; description: string; emptyMessage: string }
-> = {
-  beginner: {
-    label: "Beginner",
-    description: "Early learning projects: small Python programs, calculators and utilities.",
-    emptyMessage: "No beginner projects match.",
-  },
-  intermediate: {
-    label: "Intermediate",
-    description: "Applications with a graphical interface, more structure or several modules.",
-    emptyMessage: "No intermediate projects match.",
-  },
-  advanced: {
-    label: "Advanced / Flagship",
-    description:
-      "Substantial multi-component systems: full-stack apps, meaningful bots, working AI systems.",
-    emptyMessage:
-      "There are no flagship projects yet. I only list a project here once it is built and its complexity can be explained honestly. School Portal and an agentic AI system are the candidates.",
-  },
-};
-
-export const statusMeta: Record<ProjectStatus, { label: string }> = {
-  completed: { label: "Completed" },
-  "in-progress": { label: "In progress" },
-  prototype: { label: "Prototype" },
-  archived: { label: "Archived" },
+export const groupMeta: Record<ProjectGroup, { label: string }> = {
+  web: { label: "Web Applications" },
+  desktop: { label: "Desktop Applications" },
+  "automation-ai": { label: "Automation & AI" },
+  interactive: { label: "Interactive Applications" },
 };
 
 /**
- * Percentages in `breakdown` are my own estimates unless `breakdownBasis` is "measured".
- * Each breakdown must total exactly 100 (checked at build time in lib/integrity.ts).
+ * `languageStats` are the repository language percentages reported by GitHub.
+ * They describe code in the repository, not personal proficiency.
+ * Each set must total 100 (checked at build time in lib/integrity.ts).
+ * Replace `image` with a real screenshot whenever you have one.
  */
 export const projects: Project[] = [
   {
-    slug: "digit-calculator-0-9",
-    name: "0-9 Digit Calculator",
-    description: "A calculator with a full set of digit keys, built with a Tkinter interface.",
-    category: "beginner",
-    classificationNote:
-      "A single-purpose utility app: early work in event handling and building a desktop interface.",
-    status: "completed",
+    slug: "student-hub",
+    name: "Student Hub",
+    summary: "Progressive web app for student collaboration and academic management.",
+    description:
+      "A progressive web application for student collaboration and academic management within a Computer Science department.",
+    group: "web",
     featured: true,
-    languages: ["Python"],
-    technologies: ["Tkinter"],
-    breakdown: [{ tech: "Python", percent: 100 }],
-    breakdownBasis: "estimate",
-    image: {
-      src: "/images/projects/calculator-09.png",
-      alt: "Screenshot of the 0-9 Digit Calculator interface",
-      width: 321,
-      height: 218,
-    },
-    github: "https://github.com/active-X1/0-9-digit-cal",
-    overview: "A desktop calculator with a Tkinter interface covering the digits 0 to 9.",
-    features: ["Digit keys from 0 to 9", "Graphical interface built with Tkinter"],
-    related: ["two-number-calculator", "brightness-controller"],
-  },
-  {
-    slug: "two-number-calculator",
-    name: "Two Number Calculator",
-    description: "A Tkinter calculator for arithmetic operations on two numbers.",
-    category: "beginner",
-    classificationNote: "One of my first programs, later rebuilt with a graphical interface.",
-    status: "completed",
-    languages: ["Python"],
-    technologies: ["Tkinter"],
-    breakdown: [{ tech: "Python", percent: 100 }],
-    breakdownBasis: "estimate",
-    image: {
-      src: "/images/projects/two-number-calculator.png",
-      alt: "Screenshot of the Two Number Calculator interface",
-      width: 594,
-      height: 420,
-    },
-    github: "https://github.com/active-X1/Tkinter-two-number-calculator-",
-    overview: "A desktop calculator that performs operations on two numbers.",
-    features: ["Operations on two numbers", "Graphical interface built with Tkinter"],
-    related: ["digit-calculator-0-9", "maths-frenzy"],
-  },
-  {
-    slug: "maths-frenzy",
-    name: "Maths Frenzy",
-    description: "An interactive maths game with multiple difficulty levels.",
-    category: "intermediate",
-    classificationNote:
-      "A game with state, scoring and several difficulty levels, more involved than a one-screen utility.",
-    status: "completed",
-    featured: true,
-    languages: ["Python"],
-    technologies: [],
-    breakdown: [{ tech: "Python", percent: 100 }],
-    breakdownBasis: "estimate",
-    image: {
-      src: "/images/projects/maths-frenzy.png",
-      alt: "Screenshot of the Maths Frenzy game",
-      width: 594,
-      height: 430,
-    },
-    github: "https://github.com/active-X1/Maths-Frenzy",
-    overview: "An interactive maths game that offers several difficulty levels.",
-    features: ["Interactive maths gameplay", "Multiple difficulty levels"],
-    related: ["two-number-calculator", "brightness-controller"],
-  },
-  {
-    slug: "brightness-controller",
-    name: "Brightness Controller",
-    description: "A Tkinter app for controlling screen brightness, with a polished interface.",
-    category: "intermediate",
-    classificationNote:
-      "A desktop utility with a custom-styled interface that talks to the system rather than only doing calculations.",
-    status: "completed",
-    featured: true,
-    languages: ["Python"],
-    technologies: ["Tkinter"],
-    breakdown: [{ tech: "Python", percent: 100 }],
-    breakdownBasis: "estimate",
-    image: {
-      src: "/images/projects/brightness.jpg",
-      alt: "Screenshot of the Brightness Controller interface",
-      width: 495,
-      height: 225,
-    },
-    github: "https://github.com/active-x1/brightness_controller",
-    overview: "A desktop app for adjusting screen brightness, with a custom-styled Tkinter interface.",
-    features: ["Screen brightness control", "Custom-styled Tkinter interface"],
-    related: ["digit-calculator-0-9", "maths-frenzy"],
-  },
-  {
-    slug: "school-portal",
-    name: "School Portal",
-    description: "A student management system and academic portal, in early development.",
-    category: "intermediate",
-    classificationNote:
-      "Planned as a multi-module system, but only about 10% built, so it is not listed as advanced yet.",
-    status: "in-progress",
-    languages: [],
-    technologies: [],
-    github: "https://github.com/active-X1/School-Portal",
-    overview:
-      "A student management system and academic portal. It is roughly 10% complete and the technology stack has not been finalised.",
-    related: ["brightness-controller", "maths-frenzy"],
+    technologies: ["HTML", "CSS", "JavaScript", "Node.js", "Express.js", "PostgreSQL"],
+    languageStats: [
+      { name: "JavaScript", percent: 86.2 },
+      { name: "CSS", percent: 8.4 },
+      { name: "HTML", percent: 4.1 },
+      { name: "PLpgSQL", percent: 1.3 },
+    ],
+    github: "https://github.com/active-X1/student-hub",
+    problem:
+      "Students in a department need one place to follow academic announcements, read department feeds and manage assignments.",
+    features: [
+      "Student authentication",
+      "Academic announcements",
+      "Department feeds",
+      "Hashtag-based feed search",
+      "Private assignments",
+      "Department-published assignments",
+      "Administrative dashboard",
+      "Progressive Web App architecture",
+    ],
+    related: ["elite-ballers-fc", "campus-desk", "cyrusbot"],
   },
   {
     slug: "elite-ballers-fc",
     name: "Elite Ballers FC",
-    description: "A football club website that gives the club a dedicated online presence.",
-    category: "intermediate",
-    classificationNote:
-      "Listed as intermediate because it is a deployed website with a hosted data service behind it. It may move up once its architecture is documented from the source.",
-    status: "completed",
-    languages: ["HTML", "CSS", "JavaScript"],
-    technologies: ["Supabase", "Render"],
-    // Replace with a real screenshot later: put the file in public/images/projects/ and update `src`.
+    summary: "Mobile-first football club management platform with an admin dashboard.",
+    description:
+      "A mobile-first football club management platform built with HTML, CSS, JavaScript and Supabase.",
+    group: "web",
+    featured: true,
+    technologies: ["HTML", "CSS", "JavaScript", "Supabase", "PostgreSQL", "Render"],
+    languageStats: [
+      { name: "HTML", percent: 56.6 },
+      { name: "CSS", percent: 23.4 },
+      { name: "JavaScript", percent: 15 },
+      { name: "PLpgSQL", percent: 5 },
+    ],
     image: {
       src: "/images/projects/elite-ballers-fc-placeholder.svg",
       alt: "Placeholder preview for the Elite Ballers FC project",
@@ -162,21 +66,157 @@ export const projects: Project[] = [
       height: 400,
     },
     github: "https://github.com/active-X1/elite_ballers_fc",
-    live: "https://elite-ballers-fc.onrender.com",
-    overview:
-      "Elite Ballers FC is a football club website. It presents the club's identity, information and activities on a dedicated web platform, and it is deployed online on Render.",
+    live: "https://elite-ballers-fc.onrender.com/",
     problem:
-      "The club needed an online presence of its own: a place to present who it is and what it does, reachable from anywhere.",
+      "A football club needs one place to manage its players, fixtures, results, news and weekly dues, with a secure area for administrators.",
     features: [
-      "A dedicated online presence for the football club",
-      "Club identity and information presented on the website",
-      "Live deployment on Render",
+      "Player management",
+      "Fixtures",
+      "Match results",
+      "Club news",
+      "Photo galleries",
+      "Weekly dues tracking",
+      "Secure administrative dashboard",
+      "Supabase authentication",
+      "Database and storage integration",
     ],
-    architecture:
-      "A website built with HTML, CSS and JavaScript, using Supabase for application data and backend integration, and deployed on Render. A fuller architecture write-up will follow once it is documented from the source.",
-    contribution:
-      "I built this as a personal development project. I was responsible for building and improving the website, working with its codebase, integrating the technologies it uses and preparing it for deployment.",
-    related: ["school-portal", "maths-frenzy"],
+    related: ["student-hub", "campus-desk", "cyrusbot"],
+  },
+  {
+    slug: "campus-desk",
+    name: "Campus Desk",
+    alias: "Student Management System",
+    summary: "Python student management system with desktop, mobile, web and terminal interfaces.",
+    description:
+      "A Python-based cross-platform student management system supporting desktop, mobile, web and terminal interfaces.",
+    group: "desktop",
+    technologies: ["Python", "SQLite", "CSV"],
+    languageStats: [{ name: "Python", percent: 100 }],
+    github: "https://github.com/active-X1/Student-Management-System",
+    problem:
+      "Schools and departments need to keep student records organised, searchable and exportable, on whichever device is at hand.",
+    features: [
+      "Student records management",
+      "Analytics",
+      "Search and sorting",
+      "CSV export",
+      "SQLite storage",
+      "Multiple application interfaces",
+    ],
+    related: ["student-hub", "aurora-2-number-calculator", "rock-paper-scissors"],
+  },
+  {
+    slug: "cyrusbot",
+    name: "CyrusBot",
+    summary: "Modular WhatsApp automation platform built with Node.js and Baileys.",
+    description: "A modular WhatsApp automation platform built with Node.js and Baileys.",
+    group: "automation-ai",
+    technologies: ["JavaScript", "Node.js", "Baileys", "OpenRouter", "HTML"],
+    languageStats: [
+      { name: "JavaScript", percent: 93.3 },
+      { name: "HTML", percent: 6.7 },
+    ],
+    github: "https://github.com/active-X1/CyrusBot",
+    problem: "Automating conversations, group management and utilities on WhatsApp from one modular bot.",
+    features: [
+      "AI-powered conversations",
+      "Group moderation",
+      "Encryption utilities",
+      "Image generation",
+      "Interactive games",
+      "Custom commands",
+      "QR-code authentication",
+      "Pairing-code authentication",
+    ],
+    related: ["student-hub", "elite-ballers-fc", "rock-paper-scissors"],
+  },
+  {
+    slug: "rock-paper-scissors",
+    name: "Rock Paper Scissors",
+    summary: "NiceGUI game with a responsive web interface and terminal gameplay.",
+    description:
+      "A Python game built with NiceGUI featuring a responsive web interface and terminal gameplay.",
+    group: "interactive",
+    technologies: ["Python", "NiceGUI", "SVG"],
+    languageStats: [{ name: "Python", percent: 100 }],
+    github: "https://github.com/active-X1/Rock-paper-scissors",
+    features: [
+      "Interactive gameplay",
+      "Live score tracking",
+      "Win streaks",
+      "Keyboard shortcuts",
+      "Round history",
+      "Custom SVG artwork",
+      "Terminal gameplay",
+    ],
+    related: ["maths-frenzy", "aurora-2-number-calculator", "campus-desk"],
+  },
+  {
+    slug: "maths-frenzy",
+    name: "Maths Frenzy",
+    summary: "Timed mental-maths game and calculator with terminal, desktop and web interfaces.",
+    description:
+      "A fast-paced mental-maths game and calculator, in your terminal, on your desktop, or in your browser. Beat the clock: 20 questions, 20 seconds each, three difficulty levels and four operations. It includes a safe built-in calculator, and one game engine powers all three interfaces.",
+    group: "interactive",
+    technologies: ["Python", "Tkinter", "NiceGUI"],
+    languageStats: [{ name: "Python", percent: 100 }],
+    github: "https://github.com/active-X1/Maths-Frenzy",
+    problem: "Practising quick mental arithmetic with a game that adds time pressure.",
+    features: [
+      "Timed challenges: 20 questions, 20 seconds each",
+      "Three difficulty levels",
+      "Four arithmetic operations",
+      "Score tracking",
+      "Safe built-in calculator",
+      "One game engine shared by every interface",
+      "Terminal interface",
+      "Desktop interface (Tkinter)",
+      "Web interface (NiceGUI)",
+    ],
+    related: ["rock-paper-scissors", "campus-desk", "aurora-2-number-calculator"],
+  },
+  {
+    slug: "aurora-2-number-calculator",
+    name: "Aurora 2 Number Calculator",
+    summary: "Python calculator with an aurora-inspired dark interface.",
+    description: "A Python calculator featuring an aurora-inspired dark interface.",
+    group: "desktop",
+    technologies: ["Python", "Tkinter"],
+    languageStats: [{ name: "Python", percent: 100 }],
+    github: "https://github.com/active-X1/Aurora-2-num-calc",
+    features: [
+      "Six arithmetic operations",
+      "Precise decimal calculations",
+      "Calculation history",
+      "Keyboard shortcuts",
+      "Interactive terminal mode",
+      "No third-party runtime dependencies",
+    ],
+    related: ["brightness-controller", "rock-paper-scissors", "campus-desk"],
+  },
+  {
+    slug: "brightness-controller",
+    name: "Brightness Controller",
+    summary: "Lightweight Python desktop app for screen brightness, built with CustomTkinter.",
+    description:
+      "A lightweight Python desktop application for controlling screen brightness through a clean CustomTkinter interface.",
+    group: "desktop",
+    technologies: ["Python", "CustomTkinter", "screen_brightness_control"],
+    image: {
+      src: "/images/projects/brightness.jpg",
+      alt: "Screenshot of the Brightness Controller interface",
+      width: 495,
+      height: 225,
+    },
+    github: "https://github.com/active-X1/brightness_controller",
+    features: [
+      "Brightness adjustment slider",
+      "Current brightness display",
+      "Monitor brightness integration",
+      "Theme switching",
+      "About dialog",
+    ],
+    related: ["aurora-2-number-calculator", "campus-desk", "rock-paper-scissors"],
   },
 ];
 
@@ -184,10 +224,10 @@ export function getProject(slug: string): Project | undefined {
   return projects.find((p) => p.slug === slug);
 }
 
-export function getFacets(list: Project[]) {
-  const languages = [...new Set(list.flatMap((p) => p.languages))].sort((a, b) => a.localeCompare(b));
-  const technologies = [...new Set(list.flatMap((p) => p.technologies))].sort((a, b) =>
-    a.localeCompare(b),
-  );
-  return { languages, technologies };
+export function allTechnologies(list: Project[]): string[] {
+  return [...new Set(list.flatMap((p) => p.technologies))].sort((a, b) => a.localeCompare(b));
+}
+
+export function formatPercent(n: number): string {
+  return `${Number.isInteger(n) ? n : n.toFixed(1)}%`;
 }

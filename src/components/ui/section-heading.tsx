@@ -12,17 +12,17 @@ interface SectionHeadingProps {
 
 export function SectionHeading({ title, description, as: Tag = "h2", action, className }: SectionHeadingProps) {
   return (
-    <div className={cn("flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between", className)}>
+    <div className={cn("flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between", className)}>
       <div className="max-w-2xl">
         <Tag
           className={cn(
             "font-display font-semibold tracking-tight",
-            Tag === "h1" ? "text-4xl sm:text-5xl" : "text-2xl sm:text-3xl",
+            Tag === "h1" ? "text-fluid-h1" : "text-fluid-h2",
           )}
         >
           {title}
         </Tag>
-        {description && <p className="mt-3 text-base leading-7 text-muted-foreground">{description}</p>}
+        {description && <p className="mt-2 text-sm leading-6 text-muted-foreground sm:mt-3 sm:text-base sm:leading-7">{description}</p>}
       </div>
       {action && (
         <Link href={action.href} className="inline-flex items-center gap-1.5 text-sm font-medium text-link hover:underline">

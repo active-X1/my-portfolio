@@ -1,124 +1,117 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Search, SearchX, RotateCcw } from "lucide-react";
-import type { Project, ProjectCategory, ProjectStatus } from "@/types";
-import { categoryMeta, statusMeta } from "@/data/projects";
+import { Search, SearchX } from "lucide-react";
+import type { Project, ProjectGroup } from "@/types";
+import { groupMeta } from "@/data/projects";
 import { Input, Select } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
 import { cn } from "@/lib/utils";
 import { ProjectCard } from "./project-card";
 
-interface Props {
-  projects: Project[];
-  languages: string[];
-  technologies: string[];
-}
+type Tab = "all" | "featured" | ProjectGroup;
 
-const categories: ProjectCategory[] = ["beginner", "intermediate", "advanced"];
-const statuses = Object.keys(statusMeta) as ProjectStatus[];
+const groupOrder: ProjectGroup[] = ["web", "desktop", "automation-ai", "interactive"];
 
-export function ProjectExplorer({ projects, languages, technologies }: Props) {
+const tabLabel: Record<Tab, string> = {
+  all: "All",
+  featured: "Featured",
+  web: groupMeta.web.label,
+  desktop: groupMeta.desktop.label,
+  "automation-ai": groupMeta["automation-ai"].label,
+  interactive: groupMeta.interactive.label,
+};
+
+export function ProjectExplorer({ projects, technologies }: { projects: Project[]; technologies: string[] }) {
   const [query, setQuery] = useState("");
-  const [category, setCategory] = useState<ProjectCategory | "all">("all");
-  const [language, setLanguage] = useState("all");
+  const [tab, setTab] = useState<Tab>("all");
   const [technology, setTechnology] = useState("all");
-  const [status, setStatus] = useState<ProjectStatus | "all">("all");
 
-  const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    return projects.filter((p) => {
-      if (category !== "all" && p.category !== category) return false;
-      if (language !== "all" && !p.languages.includes(language)) return false;
-      if (technology !== "all" && !p.technologies.includes(technology)) return false;
-      if (status !== "all" && p.status !== status) return false;
-      if (!q) return true;
-      return [p.name, p.description, ...p.languages, ...p.technologies].join(" ").toLowerCase().includes(q);
-    });
-  }, [projects, query, category, language, technology, status]);
+  const tabs: Tab[] = useMemo(
+    () => ["all", "featured", ...groupOrder.filter((g) => projects.some((p) => p.group === g))],
+    [projects],
+  );
 
   const counts = useMemo(() => {
-    const c: Record<string, number> = { all: projects.length };
-    for (const cat of categories) c[cat] = projects.filter((p) => p.category === cat).length;
+    const c: Record<string, number> = { all: projects.length, featured: projects.filter((p) => p.featured).length };
+    for (const g of groupOrder) c[g] = projects.filter((p) => p.group === g).length;
     return c;
   }, [projects]);
 
-  const hasFilters = query !== "" || category !== "all" || language !== "all" || technology !== "all" || status !== "all";
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    return projects
+      .filter((p) => {
+        if (tab === "featured" && !p.featured) return false;
+        if (tab !== "all" && tab !== "featured" && p.group !== tab) return false;
+        if (technology !== "all" && !p.technologies.includes(technology)) return false;
+        if (!q) return true;
+        return [p.name, p.alias ?? "", p.summary, ...p.technologies].join(" ").toLowerCase().includes(q);
+      })
+      .sort((a, b) => Number(Boolean(b.featured)) - Number(Boolean(a.featured)));
+  }, [projects, query, tab, technology]);
+
+  const hasFilters = query !== "" || tab !== "all" || technology !== "all";
 
   function reset() {
     setQuery("");
-    setCategory("all");
-    setLanguage("all");
+    setTab("all");
     setTechnology("all");
-    setStatus("all");
   }
-
-  const categoryIsEmpty = category !== "all" && counts[category] === 0;
 
   return (
     <div>
-      <div role="group" aria-label="Project category" className="flex flex-wrap gap-2">
-        {(["all", ...categories] as const).map((c) => {
-          const active = category === c;
+      <div
+        role="group"
+        aria-label="Project category"
+        className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0"
+      >
+        {tabs.map((t) => {
+          const active = tab === t;
           return (
             <button
-              key={c}
+              key={t}
               type="button"
               aria-pressed={active}
-              onClick={() => setCategory(c)}
+              onClick={() => setTab(t)}
               className={cn(
-                "rounded-lg border px-4 py-2 text-sm font-medium transition-colors",
-                active
-                  ? "border-accent bg-accent text-accent-foreground"
-                  : "border-border hover:bg-muted",
+                "inline-flex h-9 shrink-0 items-center whitespace-nowrap rounded-lg border px-3 text-sm font-medium transition-colors sm:h-10 sm:px-4",
+                active ? "border-accent bg-accent text-accent-foreground" : "border-border hover:bg-muted",
               )}
             >
-              {c === "all" ? "All" : categoryMeta[c].label}
-              <span className={cn("ml-2 tabular-nums", active ? "opacity-80" : "text-muted-foreground")}>{counts[c]}</span>
+              {tabLabel[t]}
+              <span className={cn("ml-1.5 tabular-nums", active ? "opacity-80" : "text-muted-foreground")}>{counts[t]}</span>
             </button>
           );
         })}
       </div>
-      {category !== "all" && (
-        <p className="mt-3 max-w-2xl text-sm text-muted-foreground">{categoryMeta[category].description}</p>
-      )}
 
-      <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1fr_auto] lg:items-end">
-        <div className="space-y-1.5 sm:col-span-2 lg:col-span-1">
-          <label htmlFor="project-search" className="block text-sm font-medium">
-            Search
+      <div className="mt-3 grid grid-cols-[1fr_auto] gap-2 sm:mt-5 sm:grid-cols-[1fr_14rem] sm:gap-3">
+        <div className="relative">
+          <label htmlFor="project-search" className="sr-only">
+            Search projects
           </label>
-          <div className="relative">
-            <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" aria-hidden="true" />
-            <Input
-              id="project-search"
-              type="search"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Name, language or technology"
-              className="pl-10"
-            />
-          </div>
+          <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" aria-hidden="true" />
+          <Input
+            id="project-search"
+            type="search"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search projects"
+            className="h-10 pl-9 sm:h-11"
+          />
         </div>
-        <div className="space-y-1.5">
-          <label htmlFor="filter-language" className="block text-sm font-medium">
-            Language
+        <div>
+          <label htmlFor="filter-technology" className="sr-only">
+            Filter by technology
           </label>
-          <Select id="filter-language" value={language} onChange={(e) => setLanguage(e.target.value)}>
-            <option value="all">All languages</option>
-            {languages.map((l) => (
-              <option key={l} value={l}>
-                {l}
-              </option>
-            ))}
-          </Select>
-        </div>
-        <div className="space-y-1.5">
-          <label htmlFor="filter-technology" className="block text-sm font-medium">
-            Framework or tool
-          </label>
-          <Select id="filter-technology" value={technology} onChange={(e) => setTechnology(e.target.value)}>
+          <Select
+            id="filter-technology"
+            value={technology}
+            onChange={(e) => setTechnology(e.target.value)}
+            className="h-10 w-[9.5rem] sm:h-11 sm:w-full"
+          >
             <option value="all">All technologies</option>
             {technologies.map((t) => (
               <option key={t} value={t}>
@@ -127,32 +120,22 @@ export function ProjectExplorer({ projects, languages, technologies }: Props) {
             ))}
           </Select>
         </div>
-        <div className="space-y-1.5">
-          <label htmlFor="filter-status" className="block text-sm font-medium">
-            Status
-          </label>
-          <Select id="filter-status" value={status} onChange={(e) => setStatus(e.target.value as ProjectStatus | "all")}>
-            <option value="all">Any status</option>
-            {statuses.map((s) => (
-              <option key={s} value={s}>
-                {statusMeta[s].label}
-              </option>
-            ))}
-          </Select>
-        </div>
-        <Button variant="outline" onClick={reset} disabled={!hasFilters} className="sm:col-span-2 lg:col-span-1">
-          <RotateCcw className="h-4 w-4" aria-hidden="true" />
-          Reset
-        </Button>
       </div>
 
-      <p className="mt-6 text-sm text-muted-foreground" role="status" aria-live="polite">
-        Showing {filtered.length} of {projects.length} {projects.length === 1 ? "project" : "projects"}
-      </p>
+      <div className="mt-3 flex items-center justify-between gap-3 text-sm text-muted-foreground sm:mt-4">
+        <p role="status" aria-live="polite">
+          Showing {filtered.length} of {projects.length} projects
+        </p>
+        {hasFilters && (
+          <button type="button" onClick={reset} className="font-medium text-link hover:underline">
+            Clear filters
+          </button>
+        )}
+      </div>
 
-      <div className="mt-4">
+      <div className="mt-3 sm:mt-4">
         {filtered.length > 0 ? (
-          <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 xl:grid-cols-4 2xl:gap-6">
             {filtered.map((p) => (
               <li key={p.slug}>
                 <ProjectCard project={p} />
@@ -162,18 +145,14 @@ export function ProjectExplorer({ projects, languages, technologies }: Props) {
         ) : (
           <EmptyState
             icon={SearchX}
-            title={categoryIsEmpty ? "Nothing in this category yet" : "No projects match"}
+            title="No projects match"
             action={
-              hasFilters ? (
-                <Button variant="outline" onClick={reset}>
-                  Clear filters
-                </Button>
-              ) : undefined
+              <Button variant="outline" onClick={reset}>
+                Clear filters
+              </Button>
             }
           >
-            {category !== "all" && counts[category] === 0
-  ? categoryMeta[category].emptyMessage
-  : "Try a different search term or remove a filter."}
+            Try a different search term or remove a filter.
           </EmptyState>
         )}
       </div>

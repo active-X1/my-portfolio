@@ -19,7 +19,7 @@ export default function ContactPage() {
         title="Contact"
         description="For project ideas, collaboration, questions or opportunities. Use the form or reach me directly."
       />
-      <Container className="grid gap-12 py-12 lg:grid-cols-[1.3fr_1fr]">
+      <Container className="grid gap-8 py-8 sm:gap-12 sm:py-12 lg:grid-cols-[1.3fr_1fr]">
         <ContactForm />
 
         <aside aria-labelledby="direct-contact" className="space-y-8">

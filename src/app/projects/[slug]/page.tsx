@@ -1,15 +1,14 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ExternalLink, Hourglass } from "lucide-react";
+import { ArrowLeft, ExternalLink, Github } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { Badge } from "@/components/ui/badge";
 import { ButtonLink } from "@/components/ui/button";
-import { SectionHeading } from "@/components/ui/section-heading";
-import { ProjectTechnologyBars } from "@/components/projects/project-technology-bars";
 import { ProjectCard } from "@/components/projects/project-card";
-import { categoryMeta, getProject, projects, statusMeta } from "@/data/projects";
+import { ProjectImage, ProjectPlaceholder } from "@/components/projects/project-image";
+import { LanguageStatsFull } from "@/components/projects/project-language-stats";
+import { getProject, groupMeta, projects } from "@/data/projects";
 
 type Params = { slug: string };
 
@@ -23,25 +22,15 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   const { slug } = await params;
   const project = getProject(slug);
   if (!project) return {};
-  return { title: project.name, description: project.description };
+  return { title: project.name, description: project.summary };
 }
 
 function Block({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <section className="mt-12">
-      <h2 className="font-display text-xl font-semibold">{title}</h2>
-      <div className="mt-3 max-w-2xl leading-7 text-muted-foreground">{children}</div>
+    <section className="mt-8 sm:mt-10">
+      <h2 className="font-display text-lg font-semibold sm:text-xl">{title}</h2>
+      <div className="mt-2 max-w-2xl leading-7 text-muted-foreground sm:mt-3">{children}</div>
     </section>
-  );
-}
-
-function BulletList({ items }: { items: string[] }) {
-  return (
-    <ul className="list-disc space-y-1.5 pl-5">
-      {items.map((i) => (
-        <li key={i}>{i}</li>
-      ))}
-    </ul>
   );
 }
 
@@ -53,117 +42,112 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
   const related = (project.related ?? [])
     .map((s) => getProject(s))
     .filter((p) => p !== undefined)
-    .slice(0, 3);
-  const hasCaseStudy = Boolean(project.decisions?.length || project.lessons?.length);
-  const tags = [...project.languages, ...project.technologies];
+    .slice(0, 4);
+  const screenshots = project.screenshots ?? [];
 
   return (
-    <Container className="py-12">
+    <Container className="py-6 sm:py-10">
       <Link href="/projects" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground">
         <ArrowLeft className="h-4 w-4" aria-hidden="true" />
         All projects
       </Link>
 
-      <div className="mt-6 grid gap-10 lg:grid-cols-[1.2fr_1fr]">
+      <header className="mt-4 max-w-3xl sm:mt-6">
+        <div className="flex flex-wrap items-center gap-2">
+          <Badge tone="outline">{groupMeta[project.group].label}</Badge>
+          {project.featured && <Badge tone="accent">Featured</Badge>}
+        </div>
+        <h1 className="mt-3 font-display text-fluid-h1 font-semibold">{project.name}</h1>
+        {project.alias && <p className="mt-1 text-sm text-muted-foreground sm:text-base">{project.alias}</p>}
+        <p className="mt-3 text-fluid-lead text-muted-foreground">{project.summary}</p>
+        <div className="mt-5 flex flex-wrap gap-2.5 sm:gap-3">
+          {project.github && (
+            <ButtonLink href={project.github} external size="sm" className="sm:h-11 sm:px-5">
+              <Github className="h-4 w-4" aria-hidden="true" />
+              Repository
+              <span className="sr-only">(opens in a new tab)</span>
+            </ButtonLink>
+          )}
+          {project.live && (
+            <ButtonLink href={project.live} external variant="outline" size="sm" className="sm:h-11 sm:px-5">
+              <ExternalLink className="h-4 w-4" aria-hidden="true" />
+              Live demo
+              <span className="sr-only">(opens in a new tab)</span>
+            </ButtonLink>
+          )}
+        </div>
+      </header>
+
+      <div className="mt-6 grid gap-8 sm:mt-8 lg:grid-cols-[minmax(0,1fr)_21rem] lg:gap-12 xl:grid-cols-[minmax(0,1fr)_24rem]">
         <div>
-          <div className="flex flex-wrap items-center gap-2">
-            <Badge tone="outline">{categoryMeta[project.category].label}</Badge>
-            <Badge tone={project.status === "completed" ? "success" : "accent"}>{statusMeta[project.status].label}</Badge>
+          <div className="overflow-hidden rounded-xl border border-border">
+            <ProjectImage project={project} sizes="(min-width: 1024px) 60vw, 100vw" priority className="aspect-[16/9] sm:aspect-[16/8]" />
           </div>
-          <h1 className="mt-4 font-display text-4xl font-semibold tracking-tight sm:text-5xl">{project.name}</h1>
-          <p className="mt-4 max-w-xl text-lg leading-8 text-muted-foreground">{project.description}</p>
-          <div className="mt-6 flex flex-wrap gap-3">
-            {project.github && (
-              <ButtonLink href={project.github} external>
-                GitHub repository
-                <ExternalLink className="h-4 w-4" aria-hidden="true" />
-                <span className="sr-only">(opens in a new tab)</span>
-              </ButtonLink>
-            )}
-            {project.live ? (
-              <ButtonLink href={project.live} external variant="outline">
-                Live demo
-                <ExternalLink className="h-4 w-4" aria-hidden="true" />
-                <span className="sr-only">(opens in a new tab)</span>
-              </ButtonLink>
-            ) : (
-              <span className="inline-flex h-11 items-center rounded-lg border border-dashed border-border px-4 text-sm text-muted-foreground">
-                No live deployment
-              </span>
-            )}
-          </div>
+
+          <Block title="Overview">{project.description}</Block>
+          {project.problem && <Block title="Problem addressed">{project.problem}</Block>}
+
+          <Block title="Main functionality">
+            <ul className="grid gap-x-8 gap-y-1.5 sm:grid-cols-2">
+              {project.features.map((f) => (
+                <li key={f} className="flex gap-2">
+                  <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />
+                  {f}
+                </li>
+              ))}
+            </ul>
+          </Block>
+
+          <section className="mt-8 sm:mt-10" aria-labelledby="screens-heading">
+            <h2 id="screens-heading" className="font-display text-lg font-semibold sm:text-xl">
+              Screenshots
+            </h2>
+            <ul className="mt-3 grid grid-cols-2 gap-3 sm:gap-4">
+              {screenshots.length > 0
+                ? screenshots.map((s) => (
+                    <li key={s.src} className="overflow-hidden rounded-lg border border-border">
+                      <ProjectImage project={{ name: project.name, image: s }} sizes="(min-width: 1024px) 30vw, 50vw" />
+                    </li>
+                  ))
+                : [1, 2].map((n) => (
+                    <li key={n} className="overflow-hidden rounded-lg border border-border">
+                      <div className="aspect-[16/10]">
+                        <ProjectPlaceholder name={`${project.name}, screen ${n}`} label="Screenshot coming soon" />
+                      </div>
+                    </li>
+                  ))}
+            </ul>
+          </section>
         </div>
 
-        {project.image && (
-          <div className="relative aspect-[16/10] overflow-hidden rounded-xl border border-border bg-muted">
-            <Image
-              src={project.image.src}
-              alt={project.image.alt}
-              fill
-              priority
-              sizes="(min-width: 1024px) 480px, 100vw"
-              className="object-contain p-3"
-            />
-          </div>
-        )}
+        <aside className="space-y-6 lg:sticky lg:top-24 lg:self-start">
+          <section className="rounded-xl border border-border bg-card p-4 sm:p-5" aria-labelledby="stack-heading">
+            <h2 id="stack-heading" className="font-display text-base font-semibold">
+              Technology stack
+            </h2>
+            <ul className="mt-3 flex flex-wrap gap-1.5">
+              {project.technologies.map((t) => (
+                <li key={t} className="rounded-md bg-muted px-2 py-1 text-xs font-medium sm:text-sm">
+                  {t}
+                </li>
+              ))}
+            </ul>
+          </section>
+          <section className="rounded-xl border border-border bg-card p-4 sm:p-5" aria-labelledby="lang-heading">
+            <h2 id="lang-heading" className="font-display text-base font-semibold">
+              GitHub language statistics
+            </h2>
+            <LanguageStatsFull stats={project.languageStats} className="mt-3" />
+          </section>
+        </aside>
       </div>
 
-      {project.overview && <Block title="Overview">{project.overview}</Block>}
-
-      {project.features && project.features.length > 0 && (
-        <Block title="Main features">
-          <BulletList items={project.features} />
-        </Block>
-      )}
-
-      <Block title="Technology stack">
-        {tags.length > 0 ? (
-          <div className="flex flex-wrap gap-2">
-            {tags.map((t) => (
-              <Badge key={t}>{t}</Badge>
-            ))}
-          </div>
-        ) : (
-          <p>The stack for this project has not been finalised yet.</p>
-        )}
-        <div className="mt-6">
-          <ProjectTechnologyBars breakdown={project.breakdown} basis={project.breakdownBasis} />
-        </div>
-      </Block>
-
-      {project.classificationNote && (
-        <Block title={`Why it is listed as ${categoryMeta[project.category].label.toLowerCase()}`}>
-          {project.classificationNote}
-        </Block>
-      )}
-
-      {project.problem && <Block title="Problem being solved">{project.problem}</Block>}
-      {project.architecture && <Block title="Architecture overview">{project.architecture}</Block>}
-      {project.contribution && <Block title="My contribution">{project.contribution}</Block>}
-      {project.decisions && project.decisions.length > 0 && (
-        <Block title="Engineering decisions">
-          <BulletList items={project.decisions} />
-        </Block>
-      )}
-      {project.lessons && project.lessons.length > 0 && (
-        <Block title="Challenges and lessons learned">
-          <BulletList items={project.lessons} />
-        </Block>
-      )}
-
-      {!hasCaseStudy && (
-        <div className="mt-12 flex max-w-2xl items-start gap-3 rounded-xl border border-dashed border-border bg-card/50 p-5">
-          <Hourglass className="mt-0.5 h-5 w-5 shrink-0 text-link" aria-hidden="true" />
-          <p className="text-sm leading-6 text-muted-foreground">
-            Engineering decisions, challenges and lessons learned are still to be written up for this project.
-          </p>
-        </div>
-      )}
-
       {related.length > 0 && (
-        <section className="mt-20" aria-labelledby="related-heading">
-          <SectionHeading title="Related projects" />
-          <ul className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <section className="mt-12 sm:mt-16" aria-labelledby="related-heading">
+          <h2 id="related-heading" className="font-display text-fluid-h2 font-semibold">
+            Related projects
+          </h2>
+          <ul className="mt-4 grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 xl:grid-cols-4">
             {related.map((p) => (
               <li key={p.slug}>
                 <ProjectCard project={p} />

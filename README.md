@@ -14,18 +14,18 @@ Content lives in typed data files, separate from the components that display it.
 
 ## Routes
 
-`/`, `/about`, `/projects`, `/projects/[slug]`, `/stacks`, `/blog`, `/blog/[slug]`, `/gallery`, `/certificates`, `/reviews`, `/contact`
+`/`, `/about`, `/projects`, `/projects/[slug]`, `/technologies` (old `/stacks` redirects here), `/journey`, `/blog`, `/blog/[slug]`, `/gallery`, `/certificates`, `/reviews`, `/contact`
 
 ## Project structure
 
 ```
 src/app/            routes, metadata, sitemap, robots, API routes (api/reviews, api/contact)
-src/components/     layout, ui primitives, and one folder per feature
-src/data/           all content: site, socials, projects, skills, timeline, gallery, certificates, reviews
+src/components/     layout (header, mobile nav, footer), ui primitives, one folder per feature
+src/data/           all content: site, about, socials, navigation, projects, technologies, timeline, gallery, certificates, reviews
 src/lib/            helpers: validation, blog loader, reviews, rate limiting, data integrity checks
 content/blog/       Markdown posts
 supabase/schema.sql reviews table with Row Level Security
-public/images/      portrait and project screenshots
+public/images/      portrait and project images
 ```
 
 ## Commands
@@ -43,25 +43,30 @@ npm run build && npm start
 **Site details, email, availability badge, default theme:** `src/data/site.ts`.
 `themeDefault: "dark"` always starts dark; `"system"` follows the visitor's OS when nothing is saved.
 
-**Add a project:** add an object to `src/data/projects.ts`, put its screenshot in `public/images/projects/`.
-Fill `live` only with a URL you have checked. Any section you leave out (problem, architecture,
-contribution, decisions, lessons) is simply not shown.
+**Add a project:** add an object to `src/data/projects.ts`. Projects are grouped as Web Applications, Desktop Applications,
+Automation & AI or Interactive Applications; `featured: true` adds it to the Featured tab and the home page.
+There are no beginner/intermediate/advanced labels.
 
-**Technology percentages on projects:** `breakdown` is a list of `{ tech, percent }` that must total exactly 100
-(the build fails otherwise). Set `breakdownBasis` to `"estimate"` (your own estimate, labelled as such) or
-`"measured"` (only if you calculated it from the source). Omit `breakdown` if you do not know.
+**Project images:** every project shows a themed placeholder until you set `image` (or `screenshots` for the case study).
+Put the file in `public/images/projects/` and set `image: { src, alt, width, height }`.
 
-**Skills and percentages:** `src/data/skills.ts`. `percent` is self-assessed practical usage, not objective ability.
-Use `usage: "frequent" | "used" | "learning" | "planned"`. Leave `percent` off for skills you have not started.
-Frequent skills are shown first, the rest alphabetically.
+**GitHub language statistics:** `languageStats` holds the percentages GitHub reports for the repository. They describe code,
+not skill, and are labelled that way on every page. Each set must total 100 (the build fails otherwise). They are static
+values; refresh them by copying the numbers from the repository's Languages bar. Leave `languageStats` out when unknown.
+
+**Technologies:** `src/data/technologies.ts`. Only `proficiency: "core"` (Python, JavaScript) and `"good"` (React,
+TypeScript) are set. Do not add scores for other technologies unless you are confident in them.
 
 **Blog posts:** copy `content/blog/_post-template.md` to a new `.md` file and fill in the front matter.
 
-**Certificates:** add objects to `src/data/certificates.ts`. Add only real ones; include `verifyUrl` when possible.
+**Certificates, gallery, timeline:** `src/data/certificates.ts`, `src/data/gallery.ts`, `src/data/timeline.ts`.
 
-**Gallery:** add entries to `src/data/gallery.ts` with accessible `alt` text.
+## Responsive behaviour
 
-**Timeline and learning focus:** `src/data/timeline.ts` and `learningFocus` in `src/data/skills.ts`.
+Mobile uses a two-column project grid with compact cards (clamped text, small tags, icon links), tablets use three columns
+and large screens use four, with the page container and spacing growing at each step. Headings use fluid `clamp()` sizes
+defined in `tailwind.config.ts`. The mobile menu has an animated toggle, closes on link tap, outside tap and Escape,
+locks page scroll, keeps keyboard focus inside the menu and renders in a portal.
 
 ## Reviews and moderation
 
@@ -83,10 +88,25 @@ The form posts to `/api/contact`, which sends email through Resend. Set `RESEND_
 `CONTACT_FROM_EMAIL` (a sender on a domain you have verified with Resend). Without them the API answers 503 and the
 form says the message was not sent.
 
+## AI assistant
+
+A floating robot button (bottom right) opens a chat that answers questions about Cyrus only. On a visitor's first page
+view it shows a greeting bubble for 3 seconds, then fades it out.
+
+- The server route `src/app/api/chat/route.ts` calls OpenRouter. The key lives only in `OPENROUTER_API_KEY` and is never sent
+  to the browser. `OPENROUTER_MODEL` is optional (default `openai/gpt-4o-mini`).
+- What it knows comes from the site's own data (projects, technologies, about text, journey, contact details), built into the
+  prompt by `src/lib/assistant.ts`. Add your own facts and exact answers in `src/data/ai-knowledge.ts`.
+- If a question is about Cyrus but not covered, it gives your email and phone number. Off-topic questions are declined.
+- Without a key the widget says it is not switched on and shows your email and phone.
+- Requests are validated, limited to short messages and rate limited per IP (in memory, per serverless instance).
+  Set a spending limit on your OpenRouter key.
+- Change the phone number in `src/data/site.ts`.
+
 ## Environment variables
 
 See `.env.example`. All are optional for the site to build and run:
-`NEXT_PUBLIC_SITE_URL`, `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `RESEND_API_KEY`, `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL`.
+`NEXT_PUBLIC_SITE_URL`, `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `RESEND_API_KEY`, `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL`, `OPENROUTER_API_KEY`, `OPENROUTER_MODEL`.
 Never commit a real `.env` file.
 
 ## Deploying to Vercel

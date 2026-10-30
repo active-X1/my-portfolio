@@ -1,0 +1,17 @@
+/**
+ * Extra things the assistant may say about Cyrus, on top of what it already reads from the
+ * site's own data (projects, technologies, about text, journey, contact details).
+ *
+ * Add facts in plain sentences. Only add things that are true and that you are happy for
+ * anyone to read. The assistant is told to say it does not know anything not written here or
+ * on the site, and to give your email and phone number instead.
+ */
+export const personalFacts: string[] = [
+  // "Cyrus is based in ...",
+  // "Cyrus is currently studying ...",
+];
+
+/** Exact answers to questions you expect. The assistant treats these as the source of truth. */
+export const faq: { question: string; answer: string }[] = [
+  // { question: "Is Cyrus available for freelance work?", answer: "..." },
+];

@@ -18,7 +18,7 @@ export default function GalleryPage() {
         title="Gallery"
         description="Screenshots of what I have built. Milestones and before-and-after redesigns will be added as they happen."
       />
-      <Container className="py-12">
+      <Container className="py-8 sm:py-12">
         {gallery.length > 0 ? (
           <GalleryGrid entries={gallery} categories={galleryCategories} />
         ) : (
