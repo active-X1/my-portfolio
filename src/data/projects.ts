@@ -227,7 +227,7 @@ export const projects: Project[] = [
     group: "desktop",
     technologies: ["Python", "CustomTkinter", "screen_brightness_control"],
     image: {
-      src: "/images/projects/brightness.jpg",
+      src: "/images/projects/brightness.png",
       alt: "Screenshot of the Brightness Controller interface",
       width: 495,
       height: 225,
