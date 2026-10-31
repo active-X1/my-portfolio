@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-labelledby="t d">
+  <title id="t">Student Hub project preview placeholder</title>
+  <desc id="d">Stylised announcement, hashtag feed and assignment cards with the text Student Hub.</desc>
+  <defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#14203a"/><stop offset="1" stop-color="#0b1222"/></linearGradient></defs>
+  <rect width="640" height="360" fill="url(#g)"/>
+  <g fill="none" stroke="#ffffff" stroke-opacity="0.06" stroke-width="2"><circle cx="560" cy="60" r="110"/><circle cx="560" cy="60" r="70"/><circle cx="80" cy="320" r="90"/></g>
+  <g>
+    <rect x="70" y="40" width="150" height="104" rx="12" fill="#ffffff" fill-opacity="0.07" stroke="#ffffff" stroke-opacity="0.16" stroke-width="1.5"/>
+    <circle cx="96" cy="68" r="12" fill="#f4b93e"/>
+    <path d="M96 61v7l4 3" stroke="#0b1222" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <rect x="118" y="62" width="80" height="7" rx="3.5" fill="#ffffff" fill-opacity="0.45"/>
+    <rect x="86" y="92" width="118" height="6" rx="3" fill="#ffffff" fill-opacity="0.25"/>
+    <rect x="86" y="106" width="96" height="6" rx="3" fill="#ffffff" fill-opacity="0.25"/>
+    <rect x="86" y="120" width="60" height="6" rx="3" fill="#ffffff" fill-opacity="0.18"/>
+  </g>
+  <g>
+    <rect x="262" y="72" width="116" height="40" rx="20" fill="#f4b93e"/>
+    <text x="320" y="99" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="21" font-weight="800" fill="#0b1222">#feed</text>
+  </g>
+  <g>
+    <rect x="420" y="40" width="150" height="104" rx="12" fill="#ffffff" fill-opacity="0.07" stroke="#ffffff" stroke-opacity="0.16" stroke-width="1.5"/>
+    <g fill="none" stroke="#f4b93e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="436" y="58" width="14" height="14" rx="3"/><path d="M439 65l3 3 5-6"/>
+      <rect x="436" y="84" width="14" height="14" rx="3"/><path d="M439 91l3 3 5-6"/>
+      <rect x="436" y="110" width="14" height="14" rx="3" stroke-opacity="0.45"/>
+    </g>
+    <rect x="460" y="62" width="88" height="6" rx="3" fill="#ffffff" fill-opacity="0.4"/>
+    <rect x="460" y="88" width="70" height="6" rx="3" fill="#ffffff" fill-opacity="0.4"/>
+    <rect x="460" y="114" width="80" height="6" rx="3" fill="#ffffff" fill-opacity="0.2"/>
+  </g>
+  <text x="320" y="206" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="40" font-weight="800" letter-spacing="2" fill="#ffffff">STUDENT HUB</text>
+  <text x="320" y="236" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="17" fill="#ffffff" fill-opacity="0.6">Progressive web app</text>
+  <rect x="254" y="268" width="132" height="28" rx="14" fill="#f4b93e"/>
+  <text x="320" y="287" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#0b1222">Project Preview</text>
+</svg>

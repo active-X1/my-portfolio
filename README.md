@@ -47,8 +47,9 @@ npm run build && npm start
 Automation & AI or Interactive Applications; `featured: true` adds it to the Featured tab and the home page.
 There are no beginner/intermediate/advanced labels.
 
-**Project images:** every project shows a themed placeholder until you set `image` (or `screenshots` for the case study).
-Put the file in `public/images/projects/` and set `image: { src, alt, width, height }`.
+**Project images:** every project has a themed SVG placeholder (`public/images/projects/<slug>-placeholder.svg`) used on its card and at
+the top of its page. Real screenshots go in the project's `screenshots` list in `src/data/projects.ts` and appear under
+"Screenshots" on the project page (click one to open it full size). Add `fit: "contain"` for small or unusually shaped screenshots.
 
 **GitHub language statistics:** `languageStats` holds the percentages GitHub reports for the repository. They describe code,
 not skill, and are labelled that way on every page. Each set must total 100 (the build fails otherwise). They are static

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-labelledby="t d">
+  <title id="t">Brightness Controller project preview placeholder</title>
+  <desc id="d">A sun above a brightness slider with the text Brightness Controller.</desc>
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a1f12"/><stop offset="1" stop-color="#17100a"/></linearGradient>
+    <filter id="b" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="22"/></filter>
+  </defs>
+  <rect width="640" height="360" fill="url(#g)"/>
+  <circle cx="320" cy="70" r="46" fill="#f4b93e" fill-opacity="0.45" filter="url(#b)"/>
+  <circle cx="320" cy="70" r="22" fill="#f4b93e"/>
+  <g stroke="#f4b93e" stroke-width="4" stroke-linecap="round">
+    <line x1="320" y1="30" x2="320" y2="38"/><line x1="320" y1="102" x2="320" y2="110"/><line x1="280" y1="70" x2="288" y2="70"/><line x1="352" y1="70" x2="360" y2="70"/>
+    <line x1="292" y1="42" x2="298" y2="48"/><line x1="342" y1="92" x2="348" y2="98"/><line x1="348" y1="42" x2="342" y2="48"/><line x1="298" y1="92" x2="292" y2="98"/>
+  </g>
+  <rect x="190" y="136" width="260" height="10" rx="5" fill="#ffffff" fill-opacity="0.16"/>
+  <rect x="190" y="136" width="170" height="10" rx="5" fill="#f4b93e"/>
+  <circle cx="360" cy="141" r="11" fill="#ffffff" stroke="#f4b93e" stroke-width="3"/>
+  <text x="320" y="206" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="40" font-weight="800" letter-spacing="2" fill="#ffffff" textLength="500" lengthAdjust="spacingAndGlyphs">BRIGHTNESS CONTROLLER</text>
+  <text x="320" y="236" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="17" fill="#ffffff" fill-opacity="0.6">Python desktop utility</text>
+  <rect x="254" y="268" width="132" height="28" rx="14" fill="#f4b93e"/>
+  <text x="320" y="287" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#17100a">Project Preview</text>
+</svg>

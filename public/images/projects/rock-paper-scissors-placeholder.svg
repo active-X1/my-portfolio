@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-labelledby="t d">
+  <title id="t">Rock Paper Scissors project preview placeholder</title>
+  <desc id="d">Three tiles showing a rock, paper and scissors with the text Rock Paper Scissors.</desc>
+  <defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a1626"/><stop offset="1" stop-color="#170c16"/></linearGradient></defs>
+  <rect width="640" height="360" fill="url(#g)"/>
+  <g fill="#ffffff" fill-opacity="0.07" stroke="#ffffff" stroke-opacity="0.16" stroke-width="1.5">
+    <rect x="152" y="46" width="96" height="96" rx="16"/><rect x="272" y="46" width="96" height="96" rx="16"/><rect x="392" y="46" width="96" height="96" rx="16"/>
+  </g>
+  <g fill="none" stroke="#f4b93e" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M186 106c-6-14 0-30 14-34 8-3 18 0 22 8 10-4 20 4 20 14 0 14-12 24-28 24-14 0-24-4-28-12z"/>
+    <path d="M304 66h30l10 10v46h-40z"/><path d="M334 66v10h10" stroke-opacity="0.7"/><line x1="306" y1="90" x2="338" y2="90" stroke-opacity="0.5"/><line x1="306" y1="104" x2="338" y2="104" stroke-opacity="0.5"/>
+    <circle cx="418" cy="112" r="9"/><circle cx="454" cy="112" r="9"/><path d="M425 105l32-40M447 105l-32-40"/>
+  </g>
+  <text x="320" y="206" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="40" font-weight="800" letter-spacing="2" fill="#ffffff" textLength="520" lengthAdjust="spacingAndGlyphs">ROCK PAPER SCISSORS</text>
+  <text x="320" y="236" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="17" fill="#ffffff" fill-opacity="0.6">Python game, web and terminal</text>
+  <rect x="254" y="268" width="132" height="28" rx="14" fill="#f4b93e"/>
+  <text x="320" y="287" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#170c16">Project Preview</text>
+</svg>

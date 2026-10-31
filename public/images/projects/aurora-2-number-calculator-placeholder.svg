@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-labelledby="t d">
+  <title id="t">Aurora 2 Number Calculator project preview placeholder</title>
+  <desc id="d">A calculator with an aurora glow behind it and the text Aurora 2 Number Calculator.</desc>
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0e1f2c"/><stop offset="1" stop-color="#08131c"/></linearGradient>
+    <filter id="b" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="26"/></filter>
+  </defs>
+  <rect width="640" height="360" fill="url(#g)"/>
+  <ellipse cx="270" cy="90" rx="130" ry="46" fill="#2dd4bf" fill-opacity="0.35" filter="url(#b)"/>
+  <ellipse cx="380" cy="100" rx="120" ry="44" fill="#a78bfa" fill-opacity="0.35" filter="url(#b)"/>
+  <rect x="262" y="22" width="116" height="148" rx="14" fill="#0b1822" stroke="#ffffff" stroke-opacity="0.22" stroke-width="1.5"/>
+  <rect x="274" y="34" width="92" height="30" rx="6" fill="#ffffff" fill-opacity="0.08"/>
+  <text x="358" y="56" text-anchor="end" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="20" font-weight="700" fill="#2dd4bf">42.5</text>
+  <g fill="#ffffff" fill-opacity="0.16">
+    <rect x="274" y="74" width="26" height="20" rx="5"/><rect x="307" y="74" width="26" height="20" rx="5"/><rect x="340" y="74" width="26" height="20" rx="5" fill="#f4b93e" fill-opacity="0.9"/>
+    <rect x="274" y="102" width="26" height="20" rx="5"/><rect x="307" y="102" width="26" height="20" rx="5"/><rect x="340" y="102" width="26" height="20" rx="5" fill="#f4b93e" fill-opacity="0.9"/>
+    <rect x="274" y="130" width="26" height="20" rx="5"/><rect x="307" y="130" width="26" height="20" rx="5"/><rect x="340" y="130" width="26" height="20" rx="5" fill="#f4b93e" fill-opacity="0.9"/>
+  </g>
+  <text x="320" y="206" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="40" font-weight="800" letter-spacing="2" fill="#ffffff" textLength="540" lengthAdjust="spacingAndGlyphs">Aurora 2 Number Calculator</text>
+  <text x="320" y="236" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="17" fill="#ffffff" fill-opacity="0.6">Python desktop calculator</text>
+  <rect x="254" y="268" width="132" height="28" rx="14" fill="#f4b93e"/>
+  <text x="320" y="287" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#08131c">Project Preview</text>
+</svg>

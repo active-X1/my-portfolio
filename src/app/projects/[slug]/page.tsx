@@ -102,21 +102,36 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
             <h2 id="screens-heading" className="font-display text-lg font-semibold sm:text-xl">
               Screenshots
             </h2>
-            <ul className="mt-3 grid grid-cols-2 gap-3 sm:gap-4">
-              {screenshots.length > 0
-                ? screenshots.map((s) => (
-                    <li key={s.src} className="overflow-hidden rounded-lg border border-border">
-                      <ProjectImage project={{ name: project.name, image: s }} sizes="(min-width: 1024px) 30vw, 50vw" />
-                    </li>
-                  ))
-                : [1, 2].map((n) => (
+            {screenshots.length > 0 ? (
+              <ul className={screenshots.length === 1 ? "mt-3 grid gap-3 sm:gap-4" : "mt-3 grid gap-3 sm:grid-cols-2 sm:gap-4"}>
+                {screenshots.map((s) => (
+                  <li key={s.src}>
+                    <a
+                      href={s.src}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group block overflow-hidden rounded-lg border border-border transition-colors hover:border-accent"
+                    >
+                      <ProjectImage project={{ name: project.name, image: s }} sizes="(min-width: 1024px) 60vw, 100vw" />
+                      <span className="sr-only">View full-size screenshot of {project.name} (opens in a new tab)</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <>
+                <ul className="mt-3 grid grid-cols-2 gap-3 sm:gap-4">
+                  {[1, 2].map((n) => (
                     <li key={n} className="overflow-hidden rounded-lg border border-border">
                       <div className="aspect-video">
                         <ProjectPlaceholder name={`${project.name}, screen ${n}`} label="Screenshot coming soon" />
                       </div>
                     </li>
                   ))}
-            </ul>
+                </ul>
+                <p className="mt-2 text-sm text-muted-foreground">Real screenshots of this project will be added here.</p>
+              </>
+            )}
           </section>
         </div>
 

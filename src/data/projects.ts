@@ -29,12 +29,21 @@ export const projects: Project[] = [
       { name: "HTML", percent: 4.1 },
       { name: "PLpgSQL", percent: 1.3 },
     ],
+    // Card and project-page image: a themed placeholder. Real screenshots go in `screenshots` below.
     image: {
-      src: "/images/projects/student-hub.png",
-      alt: "Screenshot of the Student Hub web application",
-      width: 1348,
-      height: 684,
+      src: "/images/projects/student-hub-placeholder.svg",
+      alt: "Placeholder preview for the Student Hub project",
+      width: 640,
+      height: 360,
     },
+    screenshots: [
+      {
+        src: "/images/projects/student-hub.png",
+        alt: "Screenshot of the Student Hub web application",
+        width: 1348,
+        height: 684,
+      },
+    ],
     github: "https://github.com/active-X1/student-hub",
     problem:
       "Students in a department need one place to follow academic announcements, read department feeds and manage assignments.",
@@ -65,12 +74,21 @@ export const projects: Project[] = [
       { name: "JavaScript", percent: 15 },
       { name: "PLpgSQL", percent: 5 },
     ],
+    // Card and project-page image: a themed placeholder. Real screenshots go in `screenshots` below.
     image: {
-      src: "/images/projects/elite-ballers.png",
-      alt: "Screenshot of the Elite Ballers FC website",
-      width: 1366,
-      height: 768,
+      src: "/images/projects/elite-ballers-fc-placeholder.svg",
+      alt: "Placeholder preview for the Elite Ballers FC project",
+      width: 640,
+      height: 360,
     },
+    screenshots: [
+      {
+        src: "/images/projects/elite-ballers.png",
+        alt: "Screenshot of the Elite Ballers FC website",
+        width: 1366,
+        height: 768,
+      },
+    ],
     github: "https://github.com/active-X1/elite_ballers_fc",
     live: "https://elite-ballers-fc.onrender.com/",
     problem:
@@ -98,6 +116,7 @@ export const projects: Project[] = [
     group: "desktop",
     technologies: ["Python", "SQLite", "CSV"],
     languageStats: [{ name: "Python", percent: 100 }],
+    // Card and project-page image: a themed placeholder. Real screenshots go in `screenshots` below.
     image: {
       src: "/images/projects/campus-desk-placeholder.svg",
       alt: "Placeholder preview for the Campus Desk project",
@@ -128,6 +147,7 @@ export const projects: Project[] = [
       { name: "JavaScript", percent: 93.3 },
       { name: "HTML", percent: 6.7 },
     ],
+    // Card and project-page image: a themed placeholder. Real screenshots go in `screenshots` below.
     image: {
       src: "/images/projects/cyrusbot-placeholder.svg",
       alt: "Placeholder preview for the CyrusBot project",
@@ -157,12 +177,21 @@ export const projects: Project[] = [
     group: "interactive",
     technologies: ["Python", "NiceGUI", "SVG"],
     languageStats: [{ name: "Python", percent: 100 }],
+    // Card and project-page image: a themed placeholder. Real screenshots go in `screenshots` below.
     image: {
-      src: "/images/projects/rps.png",
-      alt: "Screenshot of the Rock Paper Scissors game",
-      width: 1366,
-      height: 768,
+      src: "/images/projects/rock-paper-scissors-placeholder.svg",
+      alt: "Placeholder preview for the Rock Paper Scissors project",
+      width: 640,
+      height: 360,
     },
+    screenshots: [
+      {
+        src: "/images/projects/rps.png",
+        alt: "Screenshot of the Rock Paper Scissors game",
+        width: 1366,
+        height: 768,
+      },
+    ],
     github: "https://github.com/active-X1/Rock-paper-scissors",
     features: [
       "Interactive gameplay",
@@ -184,6 +213,7 @@ export const projects: Project[] = [
     group: "interactive",
     technologies: ["Python", "Tkinter", "NiceGUI"],
     languageStats: [{ name: "Python", percent: 100 }],
+    // Card and project-page image: a themed placeholder. Real screenshots go in `screenshots` below.
     image: {
       src: "/images/projects/maths-frenzy-placeholder.svg",
       alt: "Placeholder preview for the Maths Frenzy project",
@@ -213,12 +243,21 @@ export const projects: Project[] = [
     group: "desktop",
     technologies: ["Python", "Tkinter"],
     languageStats: [{ name: "Python", percent: 100 }],
+    // Card and project-page image: a themed placeholder. Real screenshots go in `screenshots` below.
     image: {
-      src: "/images/projects/auroracalc.png",
-      alt: "Screenshot of the Aurora 2 Number Calculator",
-      width: 1366,
-      height: 768,
+      src: "/images/projects/aurora-2-number-calculator-placeholder.svg",
+      alt: "Placeholder preview for the Aurora 2 Number Calculator project",
+      width: 640,
+      height: 360,
     },
+    screenshots: [
+      {
+        src: "/images/projects/auroracalc.png",
+        alt: "Screenshot of the Aurora 2 Number Calculator",
+        width: 1366,
+        height: 768,
+      },
+    ],
     github: "https://github.com/active-X1/Aurora-2-num-calc",
     features: [
       "Six arithmetic operations",
@@ -238,14 +277,23 @@ export const projects: Project[] = [
       "A lightweight Python desktop application for controlling screen brightness through a clean CustomTkinter interface.",
     group: "desktop",
     technologies: ["Python", "CustomTkinter", "screen_brightness_control"],
-    image: {
-      src: "/images/projects/brightness.png",
-      alt: "Screenshot of the Brightness Controller interface",
-      width: 495,
-      height: 225,
-      fit: "contain",
-    },
     languageStats: [{ name: "Python", percent: 100 }],
+    // Card and project-page image: a themed placeholder. Real screenshots go in `screenshots` below.
+    image: {
+      src: "/images/projects/brightness-controller-placeholder.svg",
+      alt: "Placeholder preview for the Brightness Controller project",
+      width: 640,
+      height: 360,
+    },
+    screenshots: [
+      {
+        src: "/images/projects/brightness.png",
+        alt: "Screenshot of the Brightness Controller interface",
+        width: 495,
+        height: 225,
+        fit: "contain",
+      },
+    ],
     github: "https://github.com/active-X1/brightness_controller",
     features: [
       "Brightness adjustment slider",

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-labelledby="t d">
+  <title id="t">Elite Ballers FC project preview placeholder</title>
+  <desc id="d">A stylised football pitch with a ball and the text Elite Ballers FC.</desc>
+  <defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0e2a22"/><stop offset="1" stop-color="#0a1b16"/></linearGradient></defs>
+  <rect width="640" height="360" fill="url(#g)"/>
+  <g fill="none" stroke="#ffffff" stroke-opacity="0.16" stroke-width="2">
+    <rect x="50" y="24" width="540" height="142" rx="4"/>
+    <line x1="320" y1="24" x2="320" y2="166"/>
+    <circle cx="320" cy="95" r="34"/>
+    <rect x="50" y="52" width="70" height="86"/><rect x="520" y="52" width="70" height="86"/>
+    <rect x="50" y="72" width="28" height="46"/><rect x="562" y="72" width="28" height="46"/>
+  </g>
+  <g transform="translate(320 95)">
+    <circle r="20" fill="#f4f7f5"/>
+    <polygon points="0,-8 7.6,-2.6 4.7,6.3 -4.7,6.3 -7.6,-2.6" fill="#0a1b16"/>
+    <g stroke="#0a1b16" stroke-width="2" stroke-linecap="round"><line x1="0" y1="-8" x2="0" y2="-18"/><line x1="7.6" y1="-2.6" x2="17" y2="-6"/><line x1="4.7" y1="6.3" x2="10.5" y2="14"/><line x1="-4.7" y1="6.3" x2="-10.5" y2="14"/><line x1="-7.6" y1="-2.6" x2="-17" y2="-6"/></g>
+  </g>
+  <text x="320" y="206" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="40" font-weight="800" letter-spacing="2" fill="#ffffff">ELITE BALLERS FC</text>
+  <text x="320" y="236" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="17" fill="#ffffff" fill-opacity="0.6">Football club platform</text>
+  <rect x="254" y="268" width="132" height="28" rx="14" fill="#f4b93e"/>
+  <text x="320" y="287" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="13" font-weight="700" fill="#0a1b16">Project Preview</text>
+</svg>
