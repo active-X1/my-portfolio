@@ -82,7 +82,7 @@ export interface TimelineItem {
   status: "done" | "current" | "next";
 }
 
-export type GalleryCategory = "screenshots" | "milestones" | "setup" | "redesigns";
+export type GalleryCategory = "screenshots" | "previews" | "milestones" | "setup" | "redesigns";
 
 export interface GalleryEntry {
   id: string;
