@@ -29,6 +29,12 @@ export const projects: Project[] = [
       { name: "HTML", percent: 4.1 },
       { name: "PLpgSQL", percent: 1.3 },
     ],
+    image: {
+      src: "/images/projects/student-hub.png",
+      alt: "Student Hub project preview",
+      width: 960,
+      height: 600,
+    },
     github: "https://github.com/active-X1/student-hub",
     problem:
       "Students in a department need one place to follow academic announcements, read department feeds and manage assignments.",
@@ -60,7 +66,7 @@ export const projects: Project[] = [
       { name: "PLpgSQL", percent: 5 },
     ],
     image: {
-      src: "/images/projects/elite-ballers-fc-placeholder.svg",
+      src: "/images/projects/elite-ballers.png",
       alt: "Placeholder preview for the Elite Ballers FC project",
       width: 640,
       height: 400,
@@ -92,6 +98,12 @@ export const projects: Project[] = [
     group: "desktop",
     technologies: ["Python", "SQLite", "CSV"],
     languageStats: [{ name: "Python", percent: 100 }],
+    image: {
+      src: "/images/projects/campus-desk.png",
+      alt: "Screenshot of the Campus Dek Interface",
+      width: 495,
+      height: 225,
+    },
     github: "https://github.com/active-X1/Student-Management-System",
     problem:
       "Schools and departments need to keep student records organised, searchable and exportable, on whichever device is at hand.",
@@ -139,6 +151,12 @@ export const projects: Project[] = [
     group: "interactive",
     technologies: ["Python", "NiceGUI", "SVG"],
     languageStats: [{ name: "Python", percent: 100 }],
+    image: {
+      src: "/images/projects/rps.png",
+      alt: "Rock Paper Scissors project preview",
+      width: 960,
+      height: 600,
+    },
     github: "https://github.com/active-X1/Rock-paper-scissors",
     features: [
       "Interactive gameplay",
@@ -183,6 +201,12 @@ export const projects: Project[] = [
     group: "desktop",
     technologies: ["Python", "Tkinter"],
     languageStats: [{ name: "Python", percent: 100 }],
+    image: {
+      src: "/images/projects/auroracalc.png",
+      alt: "Aurora Calculator project preview",
+      width: 960,
+      height: 600,
+    },
     github: "https://github.com/active-X1/Aurora-2-num-calc",
     features: [
       "Six arithmetic operations",
@@ -208,6 +232,7 @@ export const projects: Project[] = [
       width: 495,
       height: 225,
     },
+    languageStats: [{ name: "Python", percent: 100 }],
     github: "https://github.com/active-X1/brightness_controller",
     features: [
       "Brightness adjustment slider",
