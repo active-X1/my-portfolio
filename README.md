@@ -84,9 +84,9 @@ serverless instance, so add a shared limiter or CAPTCHA if you see abuse.
 
 ## Contact form delivery
 
-The form posts to `/api/contact`, which sends email through Resend. Set `RESEND_API_KEY`, `CONTACT_TO_EMAIL` and
-`CONTACT_FROM_EMAIL` (a sender on a domain you have verified with Resend). Without them the API answers 503 and the
-form says the message was not sent.
+The form posts to `/api/contact`, which sends email through Resend. `RESEND_API_KEY` is required; `CONTACT_TO_EMAIL` and
+`CONTACT_FROM_EMAIL` are optional (see the assistant notes above). Without the key the API answers 503 and the form says the message
+was not sent.
 
 ## AI assistant
 
@@ -102,6 +102,14 @@ view it shows a greeting bubble for 3 seconds, then fades it out.
 - Requests are validated, limited to short messages and rate limited per IP (in memory, per serverless instance).
   Set a spending limit on your OpenRouter key.
 - Change the phone number in `src/data/site.ts`.
+- **Age:** `birthDate` in `src/data/ai-knowledge.ts` is used on the server only to compute Cyrus's current age. The assistant is
+  told to share the age, not the exact date. Delete that line and the age rule in `src/lib/assistant.ts` to stop sharing it.
+- **Emailing Cyrus:** a visitor can ask the assistant to message you or press "Email Cyrus". The assistant only *drafts* the email
+  (name, their email address, message). The visitor reviews it and presses Send, which posts to `/api/contact`, so the email goes to
+  `CONTACT_TO_EMAIL` (default cyrusakacha@gmail.com) through Resend. Only you can be emailed, it is rate limited, and nothing is
+  reported as sent unless Resend accepted it. It needs `RESEND_API_KEY`. With no `CONTACT_FROM_EMAIL`, Resend's test sender is used,
+  which delivers only to the email address of your own Resend account, so sign up to Resend with cyrusakacha@gmail.com
+  (or verify a domain and set `CONTACT_FROM_EMAIL`).
 
 ## Environment variables
 

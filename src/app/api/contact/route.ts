@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { contactSchema, fieldErrors } from "@/lib/validation";
 import { clientKey, isRateLimited } from "@/lib/rate-limit";
+import { siteConfig } from "@/data/site";
 
 export async function POST(req: Request) {
   if (isRateLimited(`contact:${clientKey(req)}`, 5, 60 * 60 * 1000)) {
@@ -24,9 +25,9 @@ export async function POST(req: Request) {
   }
 
   const apiKey = process.env.RESEND_API_KEY;
-  const to = process.env.CONTACT_TO_EMAIL;
-  const from = process.env.CONTACT_FROM_EMAIL;
-  if (!apiKey || !to || !from) {
+  const to = process.env.CONTACT_TO_EMAIL || siteConfig.email;
+  const from = process.env.CONTACT_FROM_EMAIL || "Portfolio <onboarding@resend.dev>";
+  if (!apiKey) {
     return NextResponse.json(
       { error: "not_configured", message: "Message delivery is not set up on this site yet. Your message was not sent." },
       { status: 503 },

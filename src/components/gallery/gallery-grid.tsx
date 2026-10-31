@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { GalleryCategory, GalleryEntry } from "@/types";
 import { cn, formatDate } from "@/lib/utils";
+import { imageFitClass } from "@/components/projects/project-image";
 
 export function GalleryGrid({
   entries,
@@ -41,13 +42,13 @@ export function GalleryGrid({
         {visible.map((e) => (
           <li key={e.id}>
             <figure className="h-full overflow-hidden rounded-xl border border-border bg-card">
-              <div className="relative aspect-[4/3] bg-muted">
+              <div className="relative aspect-video bg-muted">
                 <Image
                   src={e.image.src}
                   alt={e.image.alt}
                   fill
                   sizes="(min-width: 1024px) 360px, (min-width: 640px) 50vw, 100vw"
-                  className="object-contain p-3"
+                  className={imageFitClass(e.image)}
                 />
               </div>
               <figcaption className="p-5">

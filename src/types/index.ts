@@ -11,6 +11,8 @@ export interface ProjectImage {
   alt: string;
   width: number;
   height: number;
+  /** "cover" (default) fills the 16:9 frame. Use "contain" for small or unusually shaped screenshots. */
+  fit?: "cover" | "contain";
 }
 
 export interface Project {
@@ -116,6 +118,7 @@ export interface Review {
 }
 
 export type BlogCategory =
+  | "Engineering / Personal Journey"
   | "Python"
   | "Web Development"
   | "Backend Engineering"
@@ -126,10 +129,14 @@ export type BlogCategory =
 export interface BlogPost {
   slug: string;
   title: string;
+  subtitle?: string;
   date: string;
   category: BlogCategory;
   excerpt: string;
   cover?: string;
+  coverAlt?: string;
+  /** Project slugs mentioned in the article. */
+  projects: string[];
   readingMinutes: number;
   content: string;
 }

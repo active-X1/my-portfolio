@@ -31,9 +31,9 @@ export const projects: Project[] = [
     ],
     image: {
       src: "/images/projects/student-hub.png",
-      alt: "Student Hub project preview",
-      width: 960,
-      height: 600,
+      alt: "Screenshot of the Student Hub web application",
+      width: 1348,
+      height: 684,
     },
     github: "https://github.com/active-X1/student-hub",
     problem:
@@ -67,9 +67,9 @@ export const projects: Project[] = [
     ],
     image: {
       src: "/images/projects/elite-ballers.png",
-      alt: "Placeholder preview for the Elite Ballers FC project",
-      width: 640,
-      height: 400,
+      alt: "Screenshot of the Elite Ballers FC website",
+      width: 1366,
+      height: 768,
     },
     github: "https://github.com/active-X1/elite_ballers_fc",
     live: "https://elite-ballers-fc.onrender.com/",
@@ -99,10 +99,10 @@ export const projects: Project[] = [
     technologies: ["Python", "SQLite", "CSV"],
     languageStats: [{ name: "Python", percent: 100 }],
     image: {
-      src: "/images/projects/campus-desk.png",
-      alt: "Screenshot of the Campus Dek Interface",
-      width: 495,
-      height: 225,
+      src: "/images/projects/campus-desk-placeholder.svg",
+      alt: "Placeholder preview for the Campus Desk project",
+      width: 640,
+      height: 360,
     },
     github: "https://github.com/active-X1/Student-Management-System",
     problem:
@@ -128,6 +128,12 @@ export const projects: Project[] = [
       { name: "JavaScript", percent: 93.3 },
       { name: "HTML", percent: 6.7 },
     ],
+    image: {
+      src: "/images/projects/cyrusbot-placeholder.svg",
+      alt: "Placeholder preview for the CyrusBot project",
+      width: 640,
+      height: 360,
+    },
     github: "https://github.com/active-X1/CyrusBot",
     problem: "Automating conversations, group management and utilities on WhatsApp from one modular bot.",
     features: [
@@ -153,9 +159,9 @@ export const projects: Project[] = [
     languageStats: [{ name: "Python", percent: 100 }],
     image: {
       src: "/images/projects/rps.png",
-      alt: "Rock Paper Scissors project preview",
-      width: 960,
-      height: 600,
+      alt: "Screenshot of the Rock Paper Scissors game",
+      width: 1366,
+      height: 768,
     },
     github: "https://github.com/active-X1/Rock-paper-scissors",
     features: [
@@ -178,6 +184,12 @@ export const projects: Project[] = [
     group: "interactive",
     technologies: ["Python", "Tkinter", "NiceGUI"],
     languageStats: [{ name: "Python", percent: 100 }],
+    image: {
+      src: "/images/projects/maths-frenzy-placeholder.svg",
+      alt: "Placeholder preview for the Maths Frenzy project",
+      width: 640,
+      height: 360,
+    },
     github: "https://github.com/active-X1/Maths-Frenzy",
     problem: "Practising quick mental arithmetic with a game that adds time pressure.",
     features: [
@@ -203,9 +215,9 @@ export const projects: Project[] = [
     languageStats: [{ name: "Python", percent: 100 }],
     image: {
       src: "/images/projects/auroracalc.png",
-      alt: "Aurora Calculator project preview",
-      width: 960,
-      height: 600,
+      alt: "Screenshot of the Aurora 2 Number Calculator",
+      width: 1366,
+      height: 768,
     },
     github: "https://github.com/active-X1/Aurora-2-num-calc",
     features: [
@@ -231,6 +243,7 @@ export const projects: Project[] = [
       alt: "Screenshot of the Brightness Controller interface",
       width: 495,
       height: 225,
+      fit: "contain",
     },
     languageStats: [{ name: "Python", percent: 100 }],
     github: "https://github.com/active-X1/brightness_controller",

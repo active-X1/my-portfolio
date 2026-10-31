@@ -81,7 +81,7 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
       <div className="mt-6 grid gap-8 sm:mt-8 lg:grid-cols-[minmax(0,1fr)_21rem] lg:gap-12 xl:grid-cols-[minmax(0,1fr)_24rem]">
         <div>
           <div className="overflow-hidden rounded-xl border border-border">
-            <ProjectImage project={project} sizes="(min-width: 1024px) 60vw, 100vw" priority className="aspect-[16/9] sm:aspect-[16/8]" />
+            <ProjectImage project={project} sizes="(min-width: 1024px) 60vw, 100vw" priority />
           </div>
 
           <Block title="Overview">{project.description}</Block>
@@ -111,7 +111,7 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
                   ))
                 : [1, 2].map((n) => (
                     <li key={n} className="overflow-hidden rounded-lg border border-border">
-                      <div className="aspect-[16/10]">
+                      <div className="aspect-video">
                         <ProjectPlaceholder name={`${project.name}, screen ${n}`} label="Screenshot coming soon" />
                       </div>
                     </li>

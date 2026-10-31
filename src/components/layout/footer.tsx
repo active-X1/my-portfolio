@@ -28,7 +28,7 @@ export function Footer() {
         </nav>
       </Container>
       <div className="border-t border-border">
-        <Container className="flex flex-col items-start justify-between gap-3 py-5 text-sm text-muted-foreground sm:flex-row sm:items-center">
+        <Container className="flex flex-col items-start justify-between gap-3 pb-24 pt-5 text-sm text-muted-foreground sm:flex-row sm:pb-5 sm:items-center">
           <p>
             &copy; <CurrentYear /> {siteConfig.name}
           </p>

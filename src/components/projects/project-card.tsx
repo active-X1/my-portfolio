@@ -38,7 +38,7 @@ export function ProjectCard({ project, layout = "compact" }: { project: Project;
               ? "(min-width: 768px) 30vw, 50vw"
               : "(min-width: 1280px) 22vw, (min-width: 768px) 30vw, 50vw"
           }
-          className={cn(featured && "md:h-full md:aspect-auto")}
+          className={cn(featured && "md:aspect-auto md:h-full md:min-h-[11rem]")}
         />
       </Link>
 

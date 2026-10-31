@@ -15,10 +15,11 @@ export const gallery: GalleryEntry[] = [
     description: "The CustomTkinter interface of the Brightness Controller.",
     category: "screenshots",
     image: {
-      src: "/images/projects/brightness.jpg",
+      src: "/images/projects/brightness.png",
       alt: "Screenshot of the Brightness Controller interface",
       width: 495,
       height: 225,
+      fit: "contain",
     },
     projectSlug: "brightness-controller",
   },

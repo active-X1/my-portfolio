@@ -1,9 +1,12 @@
 ---
 title: "Your post title"
 date: "2026-01-01"
-category: "Developer Journey"   # Python | Web Development | Backend Engineering | AI and Agentic Systems | Project Case Studies | Developer Journey
+category: "Engineering / Personal Journey"   # Engineering / Personal Journey | Python | Web Development | Backend Engineering | AI and Agentic Systems | Project Case Studies | Developer Journey
+subtitle: "Optional line shown under the title."
 excerpt: "One or two sentences shown on the blog card."
-# cover: "/images/blog/your-cover.jpg"   (optional, place the file in public/images/blog/)
+# cover: "/images/blog/your-cover.png"   (optional, place the file in public/images/blog/)
+# coverAlt: "Describe the image for screen readers"
+# projects: [student-hub]                 (optional, project slugs shown under the article)
 # draft: true                            (optional, hides the post)
 ---
 

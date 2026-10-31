@@ -6,6 +6,7 @@ import type { BlogCategory, BlogPost } from "@/types";
 const BLOG_DIR = path.join(process.cwd(), "content", "blog");
 
 export const blogCategories: BlogCategory[] = [
+  "Engineering / Personal Journey",
   "Python",
   "Web Development",
   "Backend Engineering",
@@ -25,10 +26,13 @@ function readPost(file: string): BlogPost | null {
   return {
     slug,
     title: String(data.title),
+    subtitle: data.subtitle ? String(data.subtitle) : undefined,
     date,
     category: data.category as BlogCategory,
     excerpt: String(data.excerpt ?? ""),
     cover: data.cover ? String(data.cover) : undefined,
+    coverAlt: data.coverAlt ? String(data.coverAlt) : undefined,
+    projects: Array.isArray(data.projects) ? data.projects.map(String) : [],
     readingMinutes: Math.max(1, Math.round(words / 200)),
     content,
   };
