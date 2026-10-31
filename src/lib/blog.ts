@@ -7,6 +7,7 @@ const BLOG_DIR = path.join(process.cwd(), "content", "blog");
 
 export const blogCategories: BlogCategory[] = [
   "Engineering / Personal Journey",
+  "Engineering / Debugging",
   "Python",
   "Web Development",
   "Backend Engineering",
@@ -15,8 +16,13 @@ export const blogCategories: BlogCategory[] = [
   "Developer Journey",
 ];
 
+const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+
 function readPost(file: string): BlogPost | null {
   const slug = file.replace(/\.mdx?$/, "");
+  if (!SLUG_PATTERN.test(slug)) {
+    throw new Error(`Blog file "${file}" must be lower-case words joined by hyphens: it becomes the permanent URL /blog/${slug}.`);
+  }
   const raw = fs.readFileSync(path.join(BLOG_DIR, file), "utf8");
   const { data, content } = matter(raw);
   if (data.draft === true) return null;
@@ -40,12 +46,19 @@ function readPost(file: string): BlogPost | null {
 
 export function getAllPosts(): BlogPost[] {
   if (!fs.existsSync(BLOG_DIR)) return [];
-  return fs
+  const posts = fs
     .readdirSync(BLOG_DIR)
     .filter((f) => /\.mdx?$/.test(f) && !f.startsWith("_") && f.toLowerCase() !== "readme.md")
     .map(readPost)
     .filter((p): p is BlogPost => p !== null)
     .sort((a, b) => b.date.localeCompare(a.date));
+  // Each article's slug is its permanent URL, so it must be unique (.md and .mdx share a namespace).
+  const seen = new Set<string>();
+  for (const p of posts) {
+    if (seen.has(p.slug)) throw new Error(`Duplicate blog slug: ${p.slug}`);
+    seen.add(p.slug);
+  }
+  return posts;
 }
 
 export function getPost(slug: string): BlogPost | undefined {

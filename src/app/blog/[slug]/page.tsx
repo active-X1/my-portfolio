@@ -9,6 +9,8 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { BlogCard } from "@/components/blog/blog-card";
 import { ArticleBody } from "@/components/blog/article-body";
 import { ReadingProgress } from "@/components/blog/reading-progress";
+import { ShareArticle } from "@/components/blog/share-article";
+import { ShareButtons } from "@/components/blog/share-buttons";
 import { ProjectCard } from "@/components/projects/project-card";
 import { siteConfig } from "@/data/site";
 import { getProject } from "@/data/projects";
@@ -84,6 +86,7 @@ export default async function BlogPostPage({ params }: { params: Promise<Params>
               <span aria-hidden="true"> &middot; </span>
               {post.readingMinutes} min read
             </p>
+            <ShareButtons path={`/blog/${post.slug}`} title={post.title} className="mt-4" />
           </header>
 
           {post.cover && (
@@ -102,6 +105,8 @@ export default async function BlogPostPage({ params }: { params: Promise<Params>
           <div id="article-content" className="mt-8 sm:mt-10">
             <ArticleBody content={post.content} />
           </div>
+
+          <ShareArticle slug={post.slug} title={post.title} />
 
           {mentioned.length > 0 && (
             <section className="mt-12 border-t border-border pt-8 sm:mt-16" aria-labelledby="mentioned-heading">

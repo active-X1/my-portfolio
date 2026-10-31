@@ -57,7 +57,7 @@ values; refresh them by copying the numbers from the repository's Languages bar.
 **Technologies:** `src/data/technologies.ts`. Only `proficiency: "core"` (Python, JavaScript) and `"good"` (React,
 TypeScript) are set. Do not add scores for other technologies unless you are confident in them.
 
-**Blog posts:** copy `content/blog/_post-template.md` to a new `.md` file and fill in the front matter.
+**Blog posts:** copy `content/blog/_post-template.md` to a new `.md` file and fill in the front matter. The file name becomes the permanent article URL (`/blog/<file-name>`), and every article page includes Copy link, native Share and WhatsApp/X/LinkedIn share links. Set `NEXT_PUBLIC_SITE_URL` so the social share links and metadata use your real domain.
 
 **Certificates, gallery, timeline:** `src/data/certificates.ts`, `src/data/gallery.ts`, `src/data/timeline.ts`.
 

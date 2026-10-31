@@ -119,6 +119,7 @@ export interface Review {
 
 export type BlogCategory =
   | "Engineering / Personal Journey"
+  | "Engineering / Debugging"
   | "Python"
   | "Web Development"
   | "Backend Engineering"
