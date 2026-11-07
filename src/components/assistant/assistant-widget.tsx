@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import Link from "next/link";
 import { ArrowLeft, CheckCircle2, Loader2, Mail, Send, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -42,6 +43,82 @@ function RobotFace({ className }: { className?: string }) {
 const fieldClass =
   "w-full rounded-lg border border-border bg-background px-3 text-base placeholder:text-muted-foreground/70 sm:text-sm";
 
+function escapeRegExp(text: string) {
+  return text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+/** Matches web addresses, email addresses and Cyrus's own phone number (in the common ways it is written). */
+function buildTokenRegex(phone: string) {
+  const tail = phone.replace(/\D/g, "").slice(-10);
+  const variants =
+    tail.length === 10
+      ? [phone, phone.replace(/\s+/g, ""), `0${tail}`, `+234${tail}`, `234${tail}`, `+234 ${tail.slice(0, 3)} ${tail.slice(3, 6)} ${tail.slice(6)}`]
+      : [];
+  const phonePart = [...new Set(variants)]
+    .sort((a, b) => b.length - a.length)
+    .map(escapeRegExp)
+    .join("|");
+  return new RegExp(
+    `(https?:\\/\\/[^\\s<>"')]+|[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}${phonePart ? `|${phonePart}` : ""})`,
+    "g",
+  );
+}
+
+const linkClass = "font-medium text-link underline underline-offset-2 [overflow-wrap:anywhere] hover:no-underline";
+
+/** Turns plain text into text with clickable links, emails and phone numbers. Never injects HTML. */
+function linkify(text: string, regex: RegExp, phone: string, onInternal: () => void): ReactNode[] {
+  const tail = phone.replace(/\D/g, "").slice(-10);
+  return text.split(regex).map((part, i) => {
+    if (i % 2 === 0) return part;
+
+    if (/^https?:\/\//i.test(part)) {
+      const trailing = part.match(/[.,;:!?]+$/)?.[0] ?? "";
+      const address = trailing ? part.slice(0, -trailing.length) : part;
+      let node: ReactNode = (
+        <a href={address} target="_blank" rel="noopener noreferrer" className={linkClass}>
+          {address}
+          <span className="sr-only"> (opens in a new tab)</span>
+        </a>
+      );
+      try {
+        const url = new URL(address);
+        if (typeof window !== "undefined" && url.origin === window.location.origin) {
+          node = (
+            <Link href={`${url.pathname}${url.search}${url.hash}`} onClick={onInternal} className={linkClass}>
+              {address}
+            </Link>
+          );
+        }
+      } catch {
+        // Not a parseable address: keep it as a normal external link.
+      }
+      return (
+        <Fragment key={i}>
+          {node}
+          {trailing}
+        </Fragment>
+      );
+    }
+
+    if (part.includes("@")) {
+      return (
+        <a key={i} href={`mailto:${part}`} className={linkClass}>
+          {part}
+        </a>
+      );
+    }
+
+    const clean = part.replace(/[^\d+]/g, "");
+    const href = clean.startsWith("+") ? clean : clean.startsWith("234") ? `+${clean}` : `+234${tail}`;
+    return (
+      <a key={i} href={`tel:${href}`} className={linkClass}>
+        {part}
+      </a>
+    );
+  });
+}
+
 export function AssistantWidget({
   configured,
   email,
@@ -63,6 +140,11 @@ export function AssistantWidget({
   const [sendState, setSendState] = useState<SendState>("idle");
   const [sendNote, setSendNote] = useState("");
 
+  const tokenRegex = useMemo(() => buildTokenRegex(phone), [phone]);
+  // Close the panel after following an on-site link on small screens so the page underneath is visible.
+  const onInternalLink = () => {
+    if (typeof window !== "undefined" && window.matchMedia("(max-width: 639px)").matches) setOpen(false);
+  };
   const nextId = useRef(1);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -247,7 +329,8 @@ export function AssistantWidget({
               <div role="log" aria-live="polite" aria-label="Conversation" className="min-h-0 flex-1 space-y-3 overflow-y-auto overscroll-contain px-4 py-3">
                 {!configured && (
                   <p className="rounded-lg bg-muted px-3 py-2 text-sm leading-6 text-muted-foreground">
-                    The AI chat isn&apos;t switched on yet. You can still use &ldquo;Email Cyrus&rdquo; above, or reach him at {email} or on {phone}.
+                    The AI chat isn&apos;t switched on yet. You can still use &ldquo;Email Cyrus&rdquo; above, or reach him at{" "}
+                    {linkify(`${email} or on ${phone}.`, tokenRegex, phone, onInternalLink)}
                   </p>
                 )}
                 {messages.length === 0 && configured && (
@@ -278,7 +361,7 @@ export function AssistantWidget({
                         m.role === "user" ? "bg-accent text-accent-foreground" : "bg-muted text-foreground",
                       )}
                     >
-                      {m.content}
+                      {m.role === "assistant" ? linkify(m.content, tokenRegex, phone, onInternalLink) : m.content}
                     </p>
                     {m.draft && (
                       <div className="w-full max-w-[92%] rounded-xl border border-border p-3 text-sm">
@@ -415,7 +498,7 @@ export function AssistantWidget({
               </div>
               {sendState === "error" && (
                 <p className="text-sm leading-5 text-danger" role="alert">
-                  {sendNote} You can also reach Cyrus at {email} or on {phone}.
+                  {sendNote} You can also reach Cyrus at {linkify(`${email} or on ${phone}.`, tokenRegex, phone, onInternalLink)}
                 </p>
               )}
               <button
@@ -452,7 +535,7 @@ export function AssistantWidget({
         }}
         aria-expanded={open}
         aria-label={open ? "Close assistant" : "Ask the assistant about Cyrus"}
-        className="pointer-events-auto flex h-14 w-14 items-center justify-center rounded-full bg-accent text-accent-foreground shadow-lg transition-transform hover:scale-105 active:scale-95 motion-safe:animate-wobble motion-reduce:transition-none"
+        className="pointer-events-auto flex h-14 w-14 items-center justify-center rounded-full bg-accent text-accent-foreground opacity-60 shadow-lg transition-[opacity,transform] duration-200 hover:scale-105 hover:opacity-100 focus-visible:opacity-100 active:scale-95 active:opacity-100 aria-expanded:opacity-100 motion-safe:animate-wobble motion-reduce:transition-none"
       >
         <RobotFace className="h-8 w-8" />
       </button>
