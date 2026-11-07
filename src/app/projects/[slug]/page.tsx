@@ -8,6 +8,8 @@ import { ButtonLink } from "@/components/ui/button";
 import { ProjectCard } from "@/components/projects/project-card";
 import { ProjectImage, ProjectPlaceholder } from "@/components/projects/project-image";
 import { LanguageStatsFull } from "@/components/projects/project-language-stats";
+import { ProjectProgress } from "@/components/projects/project-progress";
+import { ScreenshotGallery } from "@/components/projects/screenshot-gallery";
 import { getProject, groupMeta, projects } from "@/data/projects";
 
 type Params = { slug: string };
@@ -56,6 +58,7 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
         <div className="flex flex-wrap items-center gap-2">
           <Badge tone="outline">{groupMeta[project.group].label}</Badge>
           {project.featured && <Badge tone="accent">Featured</Badge>}
+          <ProjectProgress percent={project.progress} size="lg" />
         </div>
         <h1 className="mt-3 font-display text-fluid-h1 font-semibold">{project.name}</h1>
         {project.alias && <p className="mt-1 text-sm text-muted-foreground sm:text-base">{project.alias}</p>}
@@ -103,21 +106,14 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
               Screenshots
             </h2>
             {screenshots.length > 0 ? (
-              <ul className={screenshots.length === 1 ? "mt-3 grid gap-3 sm:gap-4" : "mt-3 grid gap-3 sm:grid-cols-2 sm:gap-4"}>
-                {screenshots.map((s) => (
-                  <li key={s.src}>
-                    <a
-                      href={s.src}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group block overflow-hidden rounded-lg border border-border transition-colors hover:border-accent"
-                    >
-                      <ProjectImage project={{ name: project.name, image: s }} sizes="(min-width: 1024px) 60vw, 100vw" />
-                      <span className="sr-only">View full-size screenshot of {project.name} (opens in a new tab)</span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
+              <ScreenshotGallery
+                className="mt-3"
+                items={screenshots.map((shot) => ({
+                  ...shot,
+                  title: project.name,
+                  caption: shot.caption ?? shot.alt,
+                }))}
+              />
             ) : (
               <>
                 <ul className="mt-3 grid grid-cols-2 gap-3 sm:gap-4">

@@ -62,6 +62,17 @@ TypeScript) are set. Do not add scores for other technologies unless you are con
 
 **Certificates, gallery, timeline:** `src/data/certificates.ts`, `src/data/gallery.ts`, `src/data/timeline.ts`.
 
+## FAQ page, screenshot viewer and project progress
+
+- **FAQ:** `/faq` is built from `src/data/faqs.ts` (three questions to start with). The same answers are added to the AI assistant's knowledge and
+  published as FAQ structured data. Add more entries there.
+- **Screenshot viewer:** clicking a screenshot on a project page, or an image in the gallery, opens it in a pop-up on the same page with a short
+  description under it (arrows or arrow keys move between images; Escape, the close button or a click outside closes it). The description comes
+  from each screenshot's `caption` in `src/data/projects.ts`, or from the gallery entry's `description`.
+- **Project progress:** set `progress` on a project (0-100) in `src/data/projects.ts`. Finished projects (no value, or 100) show a round green tick
+  with "Complete". Anything lower shows a clock-style ring filled to that percentage. Student Hub is set to 80.
+- **AI knowledge:** the assistant also reads project completion, project page links, blog articles and the list of site pages automatically.
+
 ## Responsive behaviour
 
 Mobile uses a two-column project grid with compact cards (clamped text, small tags, icon links), tablets use three columns

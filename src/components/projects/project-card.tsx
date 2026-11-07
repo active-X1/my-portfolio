@@ -4,6 +4,7 @@ import type { Project } from "@/types";
 import { groupMeta } from "@/data/projects";
 import { cn } from "@/lib/utils";
 import { LanguageStatsCompact } from "./project-language-stats";
+import { ProjectProgress } from "./project-progress";
 import { ProjectImage } from "./project-image";
 
 const iconLink =
@@ -43,7 +44,10 @@ export function ProjectCard({ project, layout = "compact" }: { project: Project;
       </Link>
 
       <div className="flex min-w-0 flex-1 flex-col p-2.5 sm:p-4">
-        <p className="truncate text-[11px] font-medium text-link sm:text-xs">{groupMeta[project.group].label}</p>
+        <div className="flex items-center justify-between gap-2">
+          <p className="truncate text-[11px] font-medium text-link sm:text-xs">{groupMeta[project.group].label}</p>
+          <ProjectProgress percent={project.progress} label="sm" className="shrink-0" />
+        </div>
         <h3 className="mt-0.5 font-display text-[0.9375rem] font-semibold leading-snug sm:text-lg">
           <Link href={`/projects/${project.slug}`} className="line-clamp-2 hover:underline">
             {project.name}

@@ -16,6 +16,7 @@ export const moreNav: NavItem[] = [
   { label: "Gallery", href: "/gallery", description: "Screenshots and milestones" },
   { label: "Certificates", href: "/certificates", description: "Verified qualifications" },
   { label: "Reviews", href: "/reviews", description: "Feedback from collaborators" },
+  { label: "FAQ", href: "/faq", description: "Common questions answered" },
 ];
 
 export const contactNav: NavItem = { label: "Contact", href: "/contact" };

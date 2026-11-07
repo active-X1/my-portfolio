@@ -13,6 +13,8 @@ export interface ProjectImage {
   height: number;
   /** "cover" (default) fills the 16:9 frame. Use "contain" for small or unusually shaped screenshots. */
   fit?: "cover" | "contain";
+  /** Short description shown under the image when it is opened in the pop-up viewer. */
+  caption?: string;
 }
 
 export interface Project {
@@ -26,6 +28,8 @@ export interface Project {
   description: string;
   group: ProjectGroup;
   featured?: boolean;
+  /** How complete the project is, 0-100. Leave out (or 100) for a finished project. */
+  progress?: number;
   /** Languages, frameworks, services and tools, in display order. */
   technologies: string[];
   /** GitHub language statistics. Omit when not available. */
