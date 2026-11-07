@@ -44,9 +44,9 @@ export const projects: Project[] = [
         width: 1348,
         height: 684,
       caption: "The Student Hub progressive web app for student collaboration and academic management.",
-      },
+      },https://github.com/active-X1/student-hub
     ],
-    github: "https://github.com/active-X1/student-hub",
+    github: "",
     problem:
       "Students in a department need one place to follow academic announcements, read department feeds and manage assignments.",
     features: [
